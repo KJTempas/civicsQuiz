@@ -6,75 +6,47 @@
 
 <head>
 <title> Civics Quiz </title>
+<script async defer src="civics.js"></script>  <!--ties js page to this page-->
 </head>
 <body>
 
 <h1>Test your knowledge of Civics</h1>
+<!--<form action=  url of server goes here>-->
+    <form> 
+        <label for="name">Name</label>
+        <input id="name" class="form-control" type="text" name="name"required> 
+        <br>
 
-<p class="questions">
+      
+ <div class="questions">
     Question #1<br>
     How many members are in the U.S. House of Representatives?<br>
-    <input type="radio" name="members"class="members" value="100" class="wrongAnswer"/> 100 <br>
-    <input type="radio" name="members" class="members"value="435" id="correctAnswer"/> 435<br>
-    <input type="radio" name="members" class="members"value="211" class="wrongAnswer"/> 212<br>
-    <input type="radio" name="members" class="members"value="50" class="wrongAnswer"/> 50<br>
-</p>
+    
+    <input type="radio" name="quest1" value="100" class="wrongAnswer"/> 100 <br>
+    <input type="radio" name="quest1"  value="435" class="correctAnswer"/> 435<br>
+    <input type="radio" name="quest1"  value="211" class="wrongAnswer"/> 212<br>
+    <input type="radio" name="quest1"  value="50" class="wrongAnswer"/> 50<br>
+</div>
 
-<p class="questions">
+<br>
+<div class="questions">
     Question #2<br>
     In the line of succession, after President, Vice President, who is next?<br>
-    <input type="radio" name="successor" value="SecretaryOfState" class="wrongAnswer"/> Secretary Of State <br>
-    <input type="radio" name="successor" value="SenateMajLeader" class="wrongAnswer"/> Senate Majority Leader<br>
-    <input type="radio" name="successor" value="HouseSpeaker" id="correctAnswer"/> Speaker of the House<br>
-    <input type="radio" name="successor" value="SecretaryOfDefense/" class="wrongAnswer"> Secretary Of Defense<br>
-</p>
+
+    <input type="radio" name="quest2" value="SecretOfState" class="wrongAnswer"/> Secretary Of State <br>
+    <input type="radio" name="quest2" value="SenMajLeader" class="wrongAnswer"/> Senate Majority Leader<br>
+    <input type="radio" name="quest2" value="SpeakerHouse" class="correctAnswer"/> Speaker of the House<br>
+    <input type="radio" name="quest2" value="SecretDef" class="wrongAnswer"> Secretary Of Defense<br>
+</div>
+
+
+<br>
 
 <button id="submit">Submit Answers</button>
+<br>
 <p id="yourScore"></p>
 
-<script>
-let totalScore=0
-//finding elements in the html
-let indivScore=document.querySelector('#yourScore')
-let submitButton = document.querySelector('#submit')
-
-submitButton.addEventListener('click', function() {
-    //when the user clicks the submit button
-    //for each question - if answer=correct, then add 1 to total score
-    //select all of the questions by class
-    let questions = document.querySelectorAll('.questions')
-    //loop through the questions
-    questions.forEach(function(question) {
-        //select the correct answer radio button by id
-        let correctAnswer = document.querySelector('#correctAnswer')
-        //select the incorrect answer radio buttons by class
-        
-        //give the correct answer buttons a listener
-        correctAnswer.addEventListener('click', function(){
-            //if the correct answer button is clicked, add 1 to the totalScore
-            //need an if - if whatever was selected has the id =correct?
-        totalScore++
-        })
-        //is this really needed?????
-        //let wrongAnswers = document.querySelectorAll('.wrongAnswer')
-        //for(let x=0; x<wrongAnswers.length; x++){
-         //   let wrongAnswer=wrongAnswers[x]
-           // wrongAnswer.addEventListener('click', function(){
-            //no change
-            //totalScore = totalScore+0
-        //})
-        //}
-        
-    })
-
-})
-    
-//show person's score
-indivScore.innerHTML = totalScore
-//need to clear answers, store this person's score
-
-
-</script>
+</form>
 
 </body>
 </html>
