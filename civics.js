@@ -3,6 +3,7 @@ let totalScore=0
 //finding elements in the html
 let indivScore=document.querySelector('#yourScore')
 let submitButton = document.querySelector('#submit')
+let studentNameInput = document.querySelector('#name')
 //let selectedAnswer=document.querySelector('.answer') //all the answers for each question have class=answer
 //let correctAnswer = document.querySelector('.correctAnswer')  //only the correct answer has this id
 let questions = document.querySelectorAll('.questions')  //select all w/ class questions
@@ -12,6 +13,10 @@ let questions = document.querySelectorAll('.questions')  //select all w/ class q
 
 submitButton.addEventListener('click', function() {
     //when the user clicks the submit button
+    //get the student name
+    let name = studentNameInput.value
+    //TODO = add validation that >1character
+
     //for each question - if answer=correct, then add 1 to total score
     console.log(questions)
     //loop through the questions
@@ -32,6 +37,12 @@ submitButton.addEventListener('click', function() {
             totalScore++
         }
     })
+    //call function to update chart
+    addResultsToChart(name, totalScore)
+    //clear input
+    studentNameInput.value=''
+
+
 })
     
 //show person's score after looping is complete
@@ -95,3 +106,4 @@ function getRadioValue() {
     } 
     return userAnswer;          //error - useranswer is not defined
 } */
+

@@ -6,15 +6,20 @@
 
 <head>
 <title> Civics Quiz </title>
+<!--for chart.js-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+<script async defer src="civics_chart.js"></script>
+
 <script async defer src="civics.js"></script>  <!--ties js page to this page-->
 </head>
 <body>
+
 
 <h1>Test your knowledge of Civics</h1>
 <!--<form action=  url of server goes here>-->
     <form> 
         <label for="name">Name</label>
-        <input id="name" class="form-control" type="text" name="name"required> 
+        <input id="name" type="text" name="name"required> 
         <br>
 
       
@@ -48,5 +53,9 @@
 
 </form>
 
+<h1> Results of  Civics Knowledge Quiz</h1>
+<canvas id="civics_chart" width="200" height="200" >
+
+</canvas>
 </body>
 </html>
