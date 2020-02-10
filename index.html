@@ -2,10 +2,15 @@
 
 <!DOCTYPE html>
 <lang=”en”>
-<meta charset = “UTF-8”>
 
 <head>
 <title> Civics Quiz </title>
+<!--for bootstrap-->
+<meta charset = “utf-8”>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
 <!--for chart.js-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
 <script async defer src="civics_chart.js"></script>
@@ -24,7 +29,7 @@
 
       
  <div class="questions">
-    Question #1<br>
+    <h3>Question #1</h3>
     How many members are in the U.S. House of Representatives?<br>
     
     <input type="radio" name="quest1" value="100" class="wrongAnswer"/> 100 <br>
@@ -35,7 +40,7 @@
 
 <br>
 <div class="questions">
-    Question #2<br>
+    <h3>Question #2</h3>
     In the line of succession, after President, Vice President, who is next?<br>
 
     <input type="radio" name="quest2" value="SecretOfState" class="wrongAnswer"/> Secretary Of State <br>
@@ -45,9 +50,11 @@
 </div>
 
 
-<br>
 
-<button id="submit">Submit Answers</button>
+
+<br>
+<input class="btn btn-primary" type="submit" id="submit">
+
 <br>
 <p id="yourScore"></p>
 

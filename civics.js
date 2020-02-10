@@ -14,54 +14,72 @@ let questions = document.querySelectorAll('.questions')  //select all w/ class q
 submitButton.addEventListener('click', function() {
     //when the user clicks the submit button
     //get the student name
-    let name = studentNameInput.value
+    let userName = studentNameInput.value
+    console.log(name)
     //TODO = add validation that >1character
 
-    //for each question - if answer=correct, then add 1 to total score
     console.log(questions)
     //loop through the questions
     questions.forEach(function(question) {  // loop though a node list of questions
         console.log(questions.length)// works - shows 2 questions
         let correctAnswer = question.querySelector('.correctAnswer')  //find the correct answer for this question
         console.log(question) //ok
-        console.log(correctAnswer.value) //prints correct answer
+        console.log('correct answer ', correctAnswer.value) //prints correct answer
 
-        //get the user's answer
-        userAnswer =getRadioValue() //calling the function below - should return userAnswer
-        //let userAnswer = question.querySelector('quest1.checked')
+        let questName = correctAnswer.getAttribute('name')
+        //get the user's answer -call the function below - tie it to the correct class
+        userAnswer =getRadioValue(questName) 
+    
+        console.log('user answer ' , userAnswer) //print the user's answer to Q1 - but not for Q2
         
-        console.log(userAnswer) //print the user's answer to Q1 - doesn't print anything
-        
-        //below is not happening
-        if(userAnswer ===correctAnswer) {  //if the two answers are the same, add one to the total
+        if(userAnswer ===correctAnswer.value) {  //if the two answers are the same, add one to the total
             totalScore++
+            console.log('total score is ', totalScore)
+        }else {
+            console.log('wrong, answer is ' , correctAnswer)
         }
     })
     //call function to update chart
-    addResultsToChart(name, totalScore)
+    addResultsToChart(userName, totalScore)
     //clear input
     studentNameInput.value=''
+    //need to clear answers, store this person's score
 
-
-})
-    
 //show person's score after looping is complete
 indivScore.innerHTML = totalScore
-//need to clear answers, store this person's score
+})
+    
 
-
-//this is not working
-function getRadioValue() { 
-    var ele = document.getElementsByName('quest1'); 
+function getRadioValue(questionName) { 
+    var ele = document.getElementsByName(questionName); 
+    //var ele = document.gert
       let userAnswer='';
     for(i = 0; i < ele.length; i++) { 
         if(ele[i].checked) {
             userAnswer = ele[i].value; 
-            console.log(userAnswer) //nothing prints
         }
     } 
     return userAnswer
 } 
+/*
+//from Duckett book p422
+    if (window.localStorage) {  //if the browser supports local storage
+        let txtUsername = document.getElementById('name') //getting form elements
+        let txtScore = document.getElementById('yourScore')  
+
+        txtUsername.value = localStorage.getItem('name')  //elements populated by local Storage data
+        txtScore.value = localStorage.getItem('yourScore')
+
+        txtUsername.addEventListener('input', function() {  //save data
+            localStorage.setItem('name', txtUsername.value);
+        }, false);
+        textScore.addEventListener('input', function() {
+            localStorage.setItem('score', txtScore.value);
+        }, false);
+        }
+    
+    */
+
 
 //from w3schools
 //function uncheck() {
@@ -81,29 +99,4 @@ function getRadioValue() {
 //    document.getElementById("red").checked = true;
   //}
 
-  //from geeksfor geeks
-  /*function display() {  
-    var checkRadio = document.querySelector( 
-        'input[name="GFG"]:checked'); 
-      
-    if(checkRadio != null) { 
-        document.getElementById("disp").innerHTML 
-            = checkRadio.value 
-            + " radio button checked"; 
-    } 
-    else { 
-        document.getElementById("disp").innerHTML 
-            = "No one selected"; 
-    } 
-} */
-  //from geeksfor geeks
-  /*function getRadioValue() {  
-    var checkRadio = document.querySelector( 
-        'input[name="quest1"]:checked'); 
-      
-    if(checkRadio != null) { 
-        let userAnswer= checkRadio.value ; 
-    } 
-    return userAnswer;          //error - useranswer is not defined
-} */
-
+  

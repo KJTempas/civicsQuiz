@@ -34,3 +34,4 @@ function addResultsToChart(name, totalScore) {
     civicsResultsChart.update()
 
 }
+
