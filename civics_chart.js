@@ -3,7 +3,7 @@
 //let studentNameInput = document.querySelector('#name')
 //let userName = studentNameInput.value
 
-let canvas = document.getElementById('civics_chart')
+let canvas = document.querySelector('#civics_chart')
 let ctx = canvas.getContext('2d');
 
 //create chart object
@@ -12,10 +12,12 @@ let civicsResultsChart = new Chart(ctx, {
     data: {
         datasets: [
             {
+            //data: [20, 15],
             data: [],
             backgroundColor: []
         }
     ],
+        //labels: ["pepsi", "coke"]
         labels: []
     },
     options: {
@@ -32,9 +34,9 @@ let civicsResultsChart = new Chart(ctx, {
 let chartColors = ['#003f5c', '#58508d', '#bd5090', '#ff6361', '#ffa600']
 
 //call this function at end of submit button function
-function addResultsToChart(name, totalScore) {
+function addResultsToChart(userName, totalScore) {
     //add data to the label array, and data array
-    civicsResultsChart.data.labels.push(name)
+    civicsResultsChart.data.labels.push(userName)
     civicsResultsChart.data.datasets[0].data.push(totalScore)
 
     //add colors from chartColors array
