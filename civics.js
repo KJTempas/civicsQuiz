@@ -7,6 +7,7 @@ let studentNameInput = document.querySelector('#name')
 //let selectedAnswer=document.querySelector('.answer') //all the answers for each question have class=answer
 //let correctAnswer = document.querySelector('.correctAnswer')  //only the correct answer has this id
 let questions = document.querySelectorAll('.questions')  //select all w/ class questions
+let nextUserButton = document.querySelector('#nextUser')
 //# for id; . for class
 
 
@@ -26,7 +27,7 @@ submitButton.addEventListener('click', function() {
         console.log(question) //ok
         console.log('correct answer ', correctAnswer.value) //prints correct answer
 
-        let questName = correctAnswer.getAttribute('name')
+        let questName = correctAnswer.getAttribute('name') 
         //get the user's answer -call the function below - tie it to the correct class
         userAnswer =getRadioValue(questName) 
     
@@ -44,18 +45,25 @@ submitButton.addEventListener('click', function() {
 indivScore.innerHTML = `You scored ${totalScore} out of ${questions.length}`
 //call function to update chart
 addResultsToChart(userName, totalScore)
-//clear input
+//clear name input
 studentNameInput.value=''
 //calling function to uncheck all radio buttons in prep for next quiz taker
 uncheck()  
-//need to store this person's score
+//need to store this person's score? -see local storage info below line 76
 
 })
     
+nextUserButton.addEventListener('click', function() {
+//clear name input
+//studentNameInput.value=''
+//calling function to uncheck all radio buttons in prep for next quiz taker
+//uncheck()  
+
+})
+
 
 function getRadioValue(questionName) { 
     var ele = document.getElementsByName(questionName); 
-    //var ele = document.gert
       let userAnswer='';
     for(i = 0; i < ele.length; i++) { 
         if(ele[i].checked) {
