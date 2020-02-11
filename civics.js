@@ -15,7 +15,7 @@ submitButton.addEventListener('click', function() {
     //when the user clicks the submit button
     //get the student name
     let userName = studentNameInput.value
-    console.log(name)
+    console.log('User name = ', userName)  
     //TODO = add validation that >1character
 
     console.log(questions)
@@ -39,14 +39,17 @@ submitButton.addEventListener('click', function() {
             console.log('wrong, answer is ' , correctAnswer)
         }
     })
-    //call function to update chart
-    addResultsToChart(userName, totalScore)
-    //clear input
-    studentNameInput.value=''
-    //need to clear answers, store this person's score
-
+    
 //show person's score after looping is complete
-indivScore.innerHTML = totalScore
+indivScore.innerHTML = `You scored ${totalScore} out of ${questions.length}`
+//call function to update chart
+addResultsToChart(userName, totalScore)
+//clear input
+studentNameInput.value=''
+//calling function to uncheck all radio buttons in prep for next quiz taker
+uncheck()  
+//need to store this person's score
+
 })
     
 
@@ -61,6 +64,14 @@ function getRadioValue(questionName) {
     } 
     return userAnswer
 } 
+
+ //from w3schools
+function uncheck() {
+   document.getElementsByClassName("correctAnswer").checked = false;
+   document.getElementsByClassName("wrongAnswer").checked=false;
+ }
+
+
 /*
 //from Duckett book p422
     if (window.localStorage) {  //if the browser supports local storage

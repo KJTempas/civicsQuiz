@@ -29,7 +29,7 @@
 
       
  <div class="questions">
-    <h3>Question #1</h3>
+    <h4>Question #1</h4>
     How many members are in the U.S. House of Representatives?<br>
     
     <input type="radio" name="quest1" value="100" class="wrongAnswer"/> 100 <br>
@@ -40,8 +40,8 @@
 
 <br>
 <div class="questions">
-    <h3>Question #2</h3>
-    In the line of succession, after President, Vice President, who is next?<br>
+    <h4>Question #2</h4>
+    In the line of succession, after President and  Vice President, who is next?<br>
 
     <input type="radio" name="quest2" value="SecretOfState" class="wrongAnswer"/> Secretary Of State <br>
     <input type="radio" name="quest2" value="SenMajLeader" class="wrongAnswer"/> Senate Majority Leader<br>
@@ -50,17 +50,54 @@
 </div>
 
 
+<div class="questions">
+    <h4>Question #3</h4>
+    <br>
+    How many justices sit on the U.S. Supreme Court?<br>
+    <input type="radio" name="quest3" value="9" class="correctAnswer"/> 9 <br>
+    <input type="radio" name="quest3" value="12" class="wrongAnswer"/> 12<br>
+    <input type="radio" name="quest3" value="7" class="wrongAnswer"/> 7<br>
+    <input type="radio" name="quest3" value="11" class="wrongAnswer"> 11<br>
+</div>
+
+<!--
+<div class="questions">
+    <h4>Question #4</h4>
+    <br>
+    There are how many ammendments to the U.S. Constitution?<br>
+    <input type="radio" name="quest4" value="20" class="wrongAnswer"/> 20 <br>
+    <input type="radio" name="quest4" value="27" class="correctAnswer"/> 27<br>
+    <input type="radio" name="quest4" value="24" class="wrongAnswer"/> 24<br>
+    <input type="radio" name="quest4" value="35" class="wrongAnswer"> 35<br>
+</div>
+-->
+
+<!--
+<div class="questions">
+    <h4>Question #5</h4>
+    <br>
+    Which of these states was NOT one of the original colonies?<br>
+    <input type="radio" name="quest5" value="Vermont" class="correctAnswer"/> Vermont <br>
+    <input type="radio" name="quest5" value="Pennsylvania" class="wrongAnswer"/> Pennsylvania<br>
+    <input type="radio" name="quest5" value="RhodeIsland" class="wrongAnswer"/> Rhode Island<br>
+    <input type="radio" name="quest5" value="SouthCarolina" class="wrongAnswer"> South Carolina<br>
+</div>
+-->
 
 
 <br>
 <input class="btn btn-primary" type="submit" id="submit">
 
 <br>
-<p id="yourScore"></p>
+<p id="yourScore">Your score</p>
+
+<br>
+
+<button type="button" class="btn btn-success" id="nextUser" >Next User</button>
 
 </form>
 
-<h1> Results of  Civics Knowledge Quiz</h1>
+<h2> Results of  Civics Knowledge Quiz</h2>
 <canvas id="civics_chart" width="200" height="200" >
 
 </canvas>

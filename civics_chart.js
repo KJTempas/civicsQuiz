@@ -1,8 +1,9 @@
 //JS for chart.js
 
-var canvas = document.getElementById('civics_chart')
-var ctx = canvas.getContext('2d');
+let canvas = document.getElementById('civics_chart')
+let ctx = canvas.getContext('2d');
 
+//create chart object
 let civicsResultsChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -24,12 +25,18 @@ let civicsResultsChart = new Chart(ctx, {
         }
     }
 });
-//see wk5 ppt slide 60 - live updates to chart
+
+let chartColors = ['#003f5c', '#58508d', '#bd5090', '#ff6361', '#ffa600']
+
 
 function addResultsToChart(name, totalScore) {
     //add data to the label array, and data array
     civicsResultsChart.data.labels.push(name)
     civicsResultsChart.data.datasets[0].data.push(totalScore)
+
+    //add colors from chartColors array
+    let colorCount = civicsResultsChart.data.datasets[0].backgroundColor.length
+    civicsResultsChart.data.datasets[0].backgroundColor.push(chartColors % chartColors.length)
 
     civicsResultsChart.update()
 
