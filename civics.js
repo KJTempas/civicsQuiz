@@ -41,23 +41,25 @@ submitButton.addEventListener('click', function() {
         }
     })
     
-//show person's score after looping is complete
-indivScore.innerHTML = `You scored ${totalScore} out of ${questions.length}`
-//call function to update chart
-addResultsToChart(userName, totalScore)
-//clear name input
-studentNameInput.value=''
-//calling function to uncheck all radio buttons in prep for next quiz taker
-uncheck()  
-//need to store this person's score? -see local storage info below line 76
+    //show person's score after looping is complete
+    indivScore.innerHTML = `You scored ${totalScore} out of ${questions.length}`
+    //call function to update chart
+    addResultsToChart(userName, totalScore)
+    //clear name input
+    //studentNameInput.value=''
+    //calling function to uncheck all radio buttons in prep for next quiz taker
+    //uncheck()  
+    //need to store this person's score? -see local storage info below line 76
 
 })
     
 nextUserButton.addEventListener('click', function() {
 //clear name input
-//studentNameInput.value=''
+studentNameInput.value=''
 //calling function to uncheck all radio buttons in prep for next quiz taker
-//uncheck()  
+//need to clear result field
+indivScore.innerHTML= ""
+uncheck()  
 
 })
 
@@ -74,13 +76,13 @@ function getRadioValue(questionName) {
 } 
 
  //from w3schools
-function uncheck() {
+function uncheck() {//loop through it
    document.getElementsByClassName("correctAnswer").checked = false;
-   document.getElementsByClassName("wrongAnswer").checked=false;
+   document.getElementsByClassName("wrongAnswer").checked= false;
  }
 
 
-/*
+
 //from Duckett book p422
     if (window.localStorage) {  //if the browser supports local storage
         let txtUsername = document.getElementById('name') //getting form elements
@@ -92,12 +94,12 @@ function uncheck() {
         txtUsername.addEventListener('input', function() {  //save data
             localStorage.setItem('name', txtUsername.value);
         }, false);
-        textScore.addEventListener('input', function() {
+        txtScore.addEventListener('input', function() {
             localStorage.setItem('score', txtScore.value);
         }, false);
         }
     
-    */
+    
 
 
 //from w3schools
