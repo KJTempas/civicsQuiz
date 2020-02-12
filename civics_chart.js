@@ -3,8 +3,33 @@
 //let studentNameInput = document.querySelector('#name')
 //let userName = studentNameInput.value
 
-let canvas = document.querySelector('#civics_chart')
+let canvas = document.getElementById('civics_chart')
+console.log(canvas)
 let ctx = canvas.getContext('2d');
+
+//simple chart to see that it's working
+/*chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ["Coke", "Pepsi"],
+        datasets: [{
+            label: 'Number of votes',
+            data: [18,14],
+            backgroundColor: ['red', 'blue']
+        }]
+    },options:{
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+})
+
+*/
+
 
 //create chart object
 let civicsResultsChart = new Chart(ctx, {
