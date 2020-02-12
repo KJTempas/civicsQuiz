@@ -1,5 +1,5 @@
  
-let totalScore=0
+//let totalScore=0
 //finding elements in the html
 let indivScore=document.querySelector('#yourScore')
 let submitButton = document.querySelector('#submit')
@@ -14,10 +14,14 @@ let nextUserButton = document.querySelector('#nextUser')
 
 submitButton.addEventListener('click', function() {
     //when the user clicks the submit button
+    let totalScore=0
     //get the student name
     let userName = studentNameInput.value
     console.log('User name = ', userName)  
     //TODO = add validation that >1character
+    if(userName.length<1) {
+        alert('Enter a user name')
+    }
 
     console.log(questions)
     //loop through the questions
@@ -26,6 +30,7 @@ submitButton.addEventListener('click', function() {
         let correctAnswer = question.querySelector('.correctAnswer')  //find the correct answer for this question
         console.log(question) //ok
         console.log('correct answer ', correctAnswer.value) //prints correct answer
+
 
         let questName = correctAnswer.getAttribute('name') 
         //get the user's answer -call the function below - tie it to the correct class
@@ -45,21 +50,21 @@ submitButton.addEventListener('click', function() {
     indivScore.innerHTML = `You scored ${totalScore} out of ${questions.length}`
     //call function to update chart
     addResultsToChart(userName, totalScore)
-    //clear name input
-    //studentNameInput.value=''
-    //calling function to uncheck all radio buttons in prep for next quiz taker
-    //uncheck()  
+    localStorage.setItem('name', txtUsername.value); //- shows
+    localStorage.setItem('score', txtScore.value);
+    //localStorage.setItem(txtUserName.value, txtScore.value)
     //need to store this person's score? -see local storage info below line 76
 
 })
     
 nextUserButton.addEventListener('click', function() {
-//clear name input
-studentNameInput.value=''
-//calling function to uncheck all radio buttons in prep for next quiz taker
-//need to clear result field
-indivScore.innerHTML= ""
-uncheck()  
+    //clear name input
+    studentNameInput.value=''
+    //clear result field
+    indivScore.innerHTML= ""
+    //call function to uncheck all radio buttons
+    uncheck()  
+    
 
 })
 
@@ -67,22 +72,52 @@ uncheck()
 function getRadioValue(questionName) { 
     var ele = document.getElementsByName(questionName); 
       let userAnswer='';
-    for(i = 0; i < ele.length; i++) { 
-        if(ele[i].checked) {
+
+      //validation- make sure all questions have a radio button selected as an answer
+
+    for(i = 0; i < ele.length; i++) { //loop through radio button elements for each question
+        //if the element is checked, then that element's value is the user Answer
+        if(ele[i].checked) {  
             userAnswer = ele[i].value; 
-        }
+        } 
     } 
     return userAnswer
 } 
 
- //from w3schools
-function uncheck() {//loop through it
-   document.getElementsByClassName("correctAnswer").checked = false;
-   document.getElementsByClassName("wrongAnswer").checked= false;
+ //based on  w3schools
+function uncheck() {//loop through and set all radio buttons to unchecked
+    //below is not working
+   let correctEl = document.getElementsByClassName("correctAnswer")  //this makes a node list
+   console.log('number of correct elements' , correctEl.length)  //printing 3 = good
+    for (let x=0; x<correctEl.length; x++){
+   // correctEl.forEach(function(button){  //error - correctEl.forEach is not a function at uncheck
+        correctEl[x].unchecked = true;  //uncheck each of the buttons
+    }
+
+   let wrongEl = document.getElementsByClassName("wrongAnswer")
+   console.log('number of wrongAnswerButtons', wrongEl.length)  //giving correct answer of 9
+   //loop through and set unchecked to true
+   for(let t=0; t<wrongEl.length; t++) {
+        wrongEl[t].unchecked = true;
+   }
  }
 
+   //try variation on getRadioValue-not working
+   /*var ele = document.getElementsByName(questionName);
+   console.log('element', ele)
+   console.log('questionName', questionName)
+   //loop through the .......
+       for(x=0; x<ele.length; x++) {
+           ele[i].unchecked=true;  //not working
+
+       }
+   }*/
 
 
+   
+
+//document.getElementsByClassName("wrongAnswer").checked= false;
+//local storage can be seen under Applications in the DevTools
 //from Duckett book p422
     if (window.localStorage) {  //if the browser supports local storage
         let txtUsername = document.getElementById('name') //getting form elements
@@ -118,6 +153,10 @@ function uncheck() {//loop through it
 //w3schools
 //function check() {
 //    document.getElementById("red").checked = true;
+  //}
+  //from w3schools
+  //function uncheck() {
+    //document.getElementById("red").checked = false;
   //}
 
   

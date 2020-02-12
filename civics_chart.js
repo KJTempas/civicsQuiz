@@ -1,35 +1,8 @@
 //JS for chart.js
-//input elements are in the civics.js file - needed here too? maybe so because in a function? how to make global?
-//let studentNameInput = document.querySelector('#name')
-//let userName = studentNameInput.value
 
 let canvas = document.getElementById('civics_chart')
-console.log(canvas)
+//console.log(canvas)
 let ctx = canvas.getContext('2d');
-
-//simple chart to see that it's working
-/*chart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ["Coke", "Pepsi"],
-        datasets: [{
-            label: 'Number of votes',
-            data: [18,14],
-            backgroundColor: ['red', 'blue']
-        }]
-    },options:{
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-})
-
-*/
-
 
 //create chart object
 let civicsResultsChart = new Chart(ctx, {
@@ -37,19 +10,20 @@ let civicsResultsChart = new Chart(ctx, {
     data: {
         datasets: [
             {
-            //data: [20, 15],
+            label: 'Score out of 3',
             data: [],
             backgroundColor: []
         }
     ],
-        //labels: ["pepsi", "coke"]
         labels: []
     },
     options: {
         scales: {
             yAxes: [{
                 ticks: {
-                    beginAtZero: true
+                    max: 10,
+                    beginAtZero: true,
+                    stepSize: 1.0
                 }
             }]
         }
