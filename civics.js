@@ -15,7 +15,7 @@ submitButton.addEventListener('click', function() {
     //get the student name
     let userName = studentNameInput.value
     console.log('User name = ', userName)  
-    //TODO = add validation that >1character
+    // add validation that name >1character
     if(userName.length<1) {
         alert('Enter a user name')
     }
@@ -77,18 +77,18 @@ function getRadioValue(questionName) {
     return userAnswer
 } 
 
- //based on  w3schools
+ //based on  w3schools- this fx is working
 function uncheck() {//loop through and set all radio buttons to unchecked
    //w/ help from  https://forums.asp.net/t/1526762.aspx?Uncheck+Radio+button+list
    let correctEl = document.getElementsByClassName("correctAnswer")  //this makes a node list
-   console.log('number of correct elements' , correctEl.length)  //printing 3 = good
+   //console.log('number of correct elements' , correctEl.length)  //printing 3 = good
     for (let x=0; x<correctEl.length; x++){ //loop through the node list
         if (correctEl[x].checked = true ){  //if element is checked, uncheck it
             correctEl[x].checked = false;
     }
 }
    let wrongEl = document.getElementsByClassName("wrongAnswer")
-   console.log('number of wrongAnswerButtons', wrongEl.length)  
+   //console.log('number of wrongAnswerButtons', wrongEl.length)  //works
    //loop through and set unchecked to true
    for(let t=0; t<wrongEl.length; t++) {
        if(wrongEl[t].checked=true ){
@@ -101,13 +101,13 @@ function isOneChecked() { //function to make sure user selected one radio button
     //loop through all questions
     questions.forEach(function(question) {
     // All <input> tags...
-    var chx = document.getElementsByTagName('input');
-    console.log(chx)
-    for (var i=0; i<chx.length; i++) { //looping through input elements in each question
+    var radios = document.getElementsByTagName('input');
+  
+    for (var i=0; i<radios.length; i++) { //looping through input elements in each question
       // If you have more than one radio group, also check the name attribute
       // for the one you want as in && chx[i].name == 'choose'
       // Return true from the function on first match of a checked item
-      if (chx[i].type == 'radio' && chx[i].checked) {
+      if (radios[i].type == 'radio' && radios[i].checked) {
         return true;
       } 
     }
