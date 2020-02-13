@@ -1,15 +1,12 @@
  
-//let totalScore=0
+
 //finding elements in the html
 let indivScore=document.querySelector('#yourScore')
 let submitButton = document.querySelector('#submit')
 let studentNameInput = document.querySelector('#name')
-//let selectedAnswer=document.querySelector('.answer') //all the answers for each question have class=answer
-//let correctAnswer = document.querySelector('.correctAnswer')  //only the correct answer has this id
 let questions = document.querySelectorAll('.questions')  //select all w/ class questions
 let nextUserButton = document.querySelector('#nextUser')
 //# for id; . for class
-
 
 
 submitButton.addEventListener('click', function() {
@@ -23,14 +20,12 @@ submitButton.addEventListener('click', function() {
         alert('Enter a user name')
     }
 
-    console.log(questions)
     //loop through the questions
     questions.forEach(function(question) {  // loop though a node list of questions
         console.log(questions.length)// works - shows 2 questions
         let correctAnswer = question.querySelector('.correctAnswer')  //find the correct answer for this question
         console.log(question) //ok
         console.log('correct answer ', correctAnswer.value) //prints correct answer
-
 
         let questName = correctAnswer.getAttribute('name') 
         //get the user's answer -call the function below - tie it to the correct class
@@ -50,8 +45,8 @@ submitButton.addEventListener('click', function() {
     indivScore.innerHTML = `You scored ${totalScore} out of ${questions.length}`
     //call function to update chart
     addResultsToChart(userName, totalScore)
-    localStorage.setItem('name', txtUsername.value); //- shows
-    localStorage.setItem('score', txtScore.value);
+    localStorage.setItem('name', userName); //- shows
+    localStorage.setItem('score', totalScore);
     //localStorage.setItem(txtUserName.value, txtScore.value)
     //need to store this person's score? -see local storage info below line 76
 
@@ -65,16 +60,14 @@ nextUserButton.addEventListener('click', function() {
     //call function to uncheck all radio buttons
     uncheck()  
     
-
 })
 
 
 function getRadioValue(questionName) { 
     var ele = document.getElementsByName(questionName); 
       let userAnswer='';
-
       //validation- make sure all questions have a radio button selected as an answer
-
+      isOneChecked()
     for(i = 0; i < ele.length; i++) { //loop through radio button elements for each question
         //if the element is checked, then that element's value is the user Answer
         if(ele[i].checked) {  
@@ -86,16 +79,14 @@ function getRadioValue(questionName) {
 
  //based on  w3schools
 function uncheck() {//loop through and set all radio buttons to unchecked
-    //below is not working
+   //w/ help from  https://forums.asp.net/t/1526762.aspx?Uncheck+Radio+button+list
    let correctEl = document.getElementsByClassName("correctAnswer")  //this makes a node list
    console.log('number of correct elements' , correctEl.length)  //printing 3 = good
     for (let x=0; x<correctEl.length; x++){ //loop through the node list
         if (correctEl[x].checked = true ){  //if element is checked, uncheck it
             correctEl[x].checked = false;
-        
     }
 }
-
    let wrongEl = document.getElementsByClassName("wrongAnswer")
    console.log('number of wrongAnswerButtons', wrongEl.length)  
    //loop through and set unchecked to true
@@ -105,21 +96,27 @@ function uncheck() {//loop through and set all radio buttons to unchecked
    }
  }
 }
-   //try variation on getRadioValue-not working
-   /*var ele = document.getElementsByName(questionName);
-   console.log('element', ele)
-   console.log('questionName', questionName)
-   //loop through the .......
-       for(x=0; x<ele.length; x++) {
-           ele[i].unchecked=true;  //not working
+   //this function is not working yet 
+function isOneChecked() { //function to make sure user selected one radio button for each question
+    //loop through all questions
+    questions.forEach(function(question) {
+    // All <input> tags...
+    var chx = document.getElementsByTagName('input');
+    console.log(chx)
+    for (var i=0; i<chx.length; i++) { //looping through input elements in each question
+      // If you have more than one radio group, also check the name attribute
+      // for the one you want as in && chx[i].name == 'choose'
+      // Return true from the function on first match of a checked item
+      if (chx[i].type == 'radio' && chx[i].checked) {
+        return true;
+      } 
+    }
+    // End of the loop, return false
+    return false;
+    //maybe do an alert message??
+  })
+}
 
-       }
-   }*/
-
-
-   
-
-//document.getElementsByClassName("wrongAnswer").checked= false;
 //local storage can be seen under Applications in the DevTools
 //from Duckett book p422
     if (window.localStorage) {  //if the browser supports local storage
@@ -139,6 +136,19 @@ function uncheck() {//loop through and set all radio buttons to unchecked
     
 
 
+/*
+        https://stackoverflow.com/questions/13060313/checking-if-at-least-one-radio-button-has-been-selected-javascript
+        function check(){
+            var radios = document.getElementsByName("choice");
+       
+            for (var i = 0, len = radios.length; i < len; i++) {
+                 if (radios[i].checked) {
+                     return true;
+                 }
+            }
+       
+            return false;
+        }*/
 
-
-  
+        
+    
