@@ -89,19 +89,22 @@ function uncheck() {//loop through and set all radio buttons to unchecked
     //below is not working
    let correctEl = document.getElementsByClassName("correctAnswer")  //this makes a node list
    console.log('number of correct elements' , correctEl.length)  //printing 3 = good
-    for (let x=0; x<correctEl.length; x++){
-   // correctEl.forEach(function(button){  //error - correctEl.forEach is not a function at uncheck
-        correctEl[x].unchecked = true;  //uncheck each of the buttons
+    for (let x=0; x<correctEl.length; x++){ //loop through the node list
+        if (correctEl[x].checked = true ){  //if element is checked, uncheck it
+            correctEl[x].checked = false;
+        
     }
+}
 
    let wrongEl = document.getElementsByClassName("wrongAnswer")
-   console.log('number of wrongAnswerButtons', wrongEl.length)  //giving correct answer of 9
+   console.log('number of wrongAnswerButtons', wrongEl.length)  
    //loop through and set unchecked to true
    for(let t=0; t<wrongEl.length; t++) {
-        wrongEl[t].unchecked = true;
+       if(wrongEl[t].checked=true ){
+            wrongEl[t].checked = false;
    }
  }
-
+}
    //try variation on getRadioValue-not working
    /*var ele = document.getElementsByName(questionName);
    console.log('element', ele)
@@ -134,29 +137,8 @@ function uncheck() {//loop through and set all radio buttons to unchecked
         }, false);
         }
     
-    
 
 
-//from w3schools
-//function uncheck() {
- //   document.getElementById("red").checked = false;
- // }
- /*function displayRadioValue() { 
-    var ele = document.getElementsByName('gender'); 
-    for(i = 0; i < ele.length; i++) { 
-        if(ele[i].checked) 
-        document.getElementById("result").innerHTML
-                = "Gender: "+ele[i].value; 
-    } 
-} */
 
-//w3schools
-//function check() {
-//    document.getElementById("red").checked = true;
-  //}
-  //from w3schools
-  //function uncheck() {
-    //document.getElementById("red").checked = false;
-  //}
 
   
