@@ -8,6 +8,7 @@ let questions = document.querySelectorAll('.questions')  //select all w/ class q
 let nextUserButton = document.querySelector('#nextUser')
 //# for id; . for class
 
+//localStorage.removeItem("name") //if you need to remove something
 
 submitButton.addEventListener('click', function() {
     //when the user clicks the submit button
@@ -45,10 +46,7 @@ submitButton.addEventListener('click', function() {
     indivScore.innerHTML = `You scored ${totalScore} out of ${questions.length}`
     //call function to update chart
     addResultsToChart(userName, totalScore)
-    localStorage.setItem('name', userName); //- shows
-    localStorage.setItem('score', totalScore);
-    //localStorage.setItem(txtUserName.value, txtScore.value)
-    //need to store this person's score? -see local storage info below line 76
+    localStorage.setItem(userName, totalScore)
 
 })
     
@@ -119,7 +117,7 @@ function isOneChecked() { //function to make sure user selected one radio button
 
 //local storage can be seen under Applications in the DevTools
 //from Duckett book p422
-    if (window.localStorage) {  //if the browser supports local storage
+  /*  if (window.localStorage) {  //if the browser supports local storage
         let txtUsername = document.getElementById('name') //getting form elements
         let txtScore = document.getElementById('yourScore')  
 
@@ -132,7 +130,7 @@ function isOneChecked() { //function to make sure user selected one radio button
         txtScore.addEventListener('input', function() {
             localStorage.setItem('score', txtScore.value);
         }, false);
-        }
+        }*/
     
 
 
@@ -151,4 +149,13 @@ function isOneChecked() { //function to make sure user selected one radio button
         }*/
 
         
-    
+       /* 
+       from w3schools
+       for saving data to local storage
+       localStorage.setItem("key", "value");
+
+        Syntax for READING data from localStorage:
+        var lastname = localStorage.getItem("key");
+
+        Syntax for REMOVING data from localStorage:
+        localStorage.removeItem("key");*/
