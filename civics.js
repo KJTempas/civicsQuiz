@@ -47,6 +47,7 @@ submitButton.addEventListener('click', function() {
     //call function to update chart
     addResultsToChart(userName, totalScore)
     localStorage.setItem(userName, totalScore)
+    findAverage()
 
 })
     
@@ -115,24 +116,50 @@ function isOneChecked() { //function to make sure user selected one radio button
   })
 }
 
-//local storage can be seen under Applications in the DevTools
-//from Duckett book p422
-  /*  if (window.localStorage) {  //if the browser supports local storage
-        let txtUsername = document.getElementById('name') //getting form elements
-        let txtScore = document.getElementById('yourScore')  
+function findAverage() {
+    let scores =[]
+    for(var i in localStorage){
+        scores.push(localStorage[i])
+        //console.log(localStorage[i]);
+    }
+    console.log(scores)
+}
 
-        txtUsername.value = localStorage.getItem('name')  //elements populated by local Storage data
-        txtScore.value = localStorage.getItem('yourScore')
 
-        txtUsername.addEventListener('input', function() {  //save data
-            localStorage.setItem('name', txtUsername.value);
-        }, false);
-        txtScore.addEventListener('input', function() {
-            localStorage.setItem('score', txtScore.value);
-        }, false);
-        }*/
-    
+//average scores
+//get number of items in local storage
+//sum values
+//divide     values/number of items = average
+//graph average?
 
+/*
+https://stackoverflow.com/questions/5410745/how-can-i-get-a-list-of-the-items-stored-in-html-5-local-storage-from-javascript
+localStorage.setItem('test', 'testing 1');
+localStorage.setItem('test2', 'testing 2');
+localStorage.setItem('test3', 'testing 3');
+
+for(var i in localStorage)
+{
+    console.log(localStorage[i]);
+}
+
+//test for firefox 3.6 see if it works
+//with this way of iterating it
+for(var i=0, len=localStorage.length; i<len; i++) {
+    var key = localStorage.key(i);
+    var value = localStorage[key];
+    console.log(key + " => " + value);
+}
+This will output:
+
+testing 3
+testing 2
+testing 1
+
+test3 => testing 3
+test2 => testing 2
+test => testing 1
+*/
 
 /*
         https://stackoverflow.com/questions/13060313/checking-if-at-least-one-radio-button-has-been-selected-javascript
