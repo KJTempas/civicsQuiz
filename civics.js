@@ -8,7 +8,7 @@ let questions = document.querySelectorAll('.questions')  //select all w/ class q
 let nextUserButton = document.querySelector('#nextUser')
 //# for id; . for class
 
-//localStorage.removeItem("name") //if you need to remove something
+localStorage.removeItem("alan") //if you need to remove something
 
 submitButton.addEventListener('click', function() {
     //when the user clicks the submit button
@@ -49,6 +49,7 @@ submitButton.addEventListener('click', function() {
     localStorage.setItem(userName, totalScore)
     findAverage()
 
+
 })
     
 nextUserButton.addEventListener('click', function() {
@@ -66,7 +67,8 @@ function getRadioValue(questionName) {
     var ele = document.getElementsByName(questionName); 
       let userAnswer='';
       //validation- make sure all questions have a radio button selected as an answer
-      isOneChecked()
+      //isOneChecked()
+      //validate()
     for(i = 0; i < ele.length; i++) { //loop through radio button elements for each question
         //if the element is checked, then that element's value is the user Answer
         if(ele[i].checked) {  
@@ -95,34 +97,44 @@ function uncheck() {//loop through and set all radio buttons to unchecked
    }
  }
 }
+
    //this function is not working yet 
-function isOneChecked() { //function to make sure user selected one radio button for each question
-    //loop through all questions
-    questions.forEach(function(question) {
-    // All <input> tags...
-    var radios = document.getElementsByTagName('input');
-  
-    for (var i=0; i<radios.length; i++) { //looping through input elements in each question
-      // If you have more than one radio group, also check the name attribute
-      // for the one you want as in && chx[i].name == 'choose'
-      // Return true from the function on first match of a checked item
-      if (radios[i].type == 'radio' && radios[i].checked) {
-        return true;
-      } 
+//function isOneChecked() { //function to make sure user selected one radio button for each question
+ // Delegate submit action
+ /*
+ function validate(){
+    if (checkRadio("question1") && checkRadio("question2") && checkRadio("question3")){
+     return true;
+    }else{
+    alert("Please answer all Questions!");
+     return false;
     }
-    // End of the loop, return false
+    }
+    function checkRadio(name){
+     var radio = document.getElementsByTagName('input');  //error -cannot read property 'question 1' of undefined
+    for (var option in radio){
+    if(radio[option].checked){
+     return true;
+    }
+    }
     return false;
-    //maybe do an alert message??
-  })
-}
+    }
+
+*/
 
 function findAverage() {
-    let scores =[]
-    for(var i in localStorage){
-        scores.push(localStorage[i])
-        //console.log(localStorage[i]);
+    let arrayOfValues = Object.values(localStorage);  //stack overflow   
+    console.log(arrayOfValues) //works - prints all values in " "
+    console.log('length of array', arrayOfValues.length)  //good
+    let total = 0
+    //loop through array and add to total
+    for (let i=0; i<arrayOfValues.length; i++) {
+        //console.log(arrayOfValues[i])
+        total =total+ arrayOfValues[i]  //concatenating, not adding
+        //console.log(total)
     }
-    console.log(scores)
+    let average = total/arrayOfValues.length
+    console.log(average)
 }
 
 
