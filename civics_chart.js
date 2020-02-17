@@ -10,7 +10,7 @@ let civicsResultsChart = new Chart(ctx, {
     data: {
         datasets: [
             {
-            label: 'Score out of 3',
+            label: 'Score out of 10',
             data: [],
             backgroundColor: []
         }

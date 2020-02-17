@@ -10,7 +10,7 @@ let averageButton = document.querySelector('#average')
 let averageScore = document.querySelector('#averageScore')
 //# for id; . for class
 
-localStorage.removeItem("kit") //if you need to remove something
+localStorage.removeItem("zion") //if you need to remove something
 
 submitButton.addEventListener('click', function() {
     //when the user clicks the submit button
