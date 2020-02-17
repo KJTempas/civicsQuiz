@@ -6,9 +6,11 @@ let submitButton = document.querySelector('#submit')
 let studentNameInput = document.querySelector('#name')
 let questions = document.querySelectorAll('.questions')  //select all w/ class questions
 let nextUserButton = document.querySelector('#nextUser')
+let averageButton = document.querySelector('#average')
+let averageScore = document.querySelector('#averageScore')
 //# for id; . for class
 
-localStorage.removeItem("alan") //if you need to remove something
+localStorage.removeItem("kit") //if you need to remove something
 
 submitButton.addEventListener('click', function() {
     //when the user clicks the submit button
@@ -48,6 +50,7 @@ submitButton.addEventListener('click', function() {
     addResultsToChart(userName, totalScore)
     localStorage.setItem(userName, totalScore)
     findAverage()
+    //addResultsToChart(averageScore, average)
 
 
 })
@@ -62,6 +65,16 @@ nextUserButton.addEventListener('click', function() {
     
 })
 
+averageButton.addEventListener('click', function() {
+    //call function below
+    average =findAverage()
+    //show results
+    averageScore.innerHTML = `Average score is ${average}`
+    //graph average
+    let totalScore = average
+    addResultsToChart('average', totalScore)
+
+})
 
 function getRadioValue(questionName) { 
     var ele = document.getElementsByName(questionName); 
@@ -129,49 +142,20 @@ function findAverage() {
     let total = 0
     //loop through array and add to total
     for (let i=0; i<arrayOfValues.length; i++) {
-        //console.log(arrayOfValues[i])
-        total =total+ arrayOfValues[i]  //concatenating, not adding
-        //console.log(total)
+
+        let int = Number(arrayOfValues[i])//convert from string to int
+        //console.log('number is ', int) //prints number, not string
+        total =total+ int  
+    
     }
     let average = total/arrayOfValues.length
-    console.log(average)
+    console.log('average is ', average) //works
+    return average;
 }
 
 
-//average scores
-//get number of items in local storage
-//sum values
-//divide     values/number of items = average
 //graph average?
 
-/*
-https://stackoverflow.com/questions/5410745/how-can-i-get-a-list-of-the-items-stored-in-html-5-local-storage-from-javascript
-localStorage.setItem('test', 'testing 1');
-localStorage.setItem('test2', 'testing 2');
-localStorage.setItem('test3', 'testing 3');
-
-for(var i in localStorage)
-{
-    console.log(localStorage[i]);
-}
-
-//test for firefox 3.6 see if it works
-//with this way of iterating it
-for(var i=0, len=localStorage.length; i<len; i++) {
-    var key = localStorage.key(i);
-    var value = localStorage[key];
-    console.log(key + " => " + value);
-}
-This will output:
-
-testing 3
-testing 2
-testing 1
-
-test3 => testing 3
-test2 => testing 2
-test => testing 1
-*/
 
 /*
         https://stackoverflow.com/questions/13060313/checking-if-at-least-one-radio-button-has-been-selected-javascript
@@ -188,13 +172,4 @@ test => testing 1
         }*/
 
         
-       /* 
-       from w3schools
-       for saving data to local storage
-       localStorage.setItem("key", "value");
-
-        Syntax for READING data from localStorage:
-        var lastname = localStorage.getItem("key");
-
-        Syntax for REMOVING data from localStorage:
-        localStorage.removeItem("key");*/
+    
