@@ -1,5 +1,4 @@
  
-
 //finding elements in the html
 let indivScore=document.querySelector('#yourScore')
 let submitButton = document.querySelector('#submit')
@@ -10,7 +9,7 @@ let averageButton = document.querySelector('#average')
 let averageScore = document.querySelector('#averageScore')
 //# for id; . for class
 
-localStorage.removeItem("zion") //if you need to remove something
+localStorage.removeItem("dog") //if you need to remove something
 
 submitButton.addEventListener('click', function() {
     //when the user clicks the submit button
@@ -21,11 +20,20 @@ submitButton.addEventListener('click', function() {
     // add validation that name >1character
     if(userName.length<1) {
         alert('Enter a user name')
+        return
     }
-
+    //insert here function to check that one radio button was selected for each question
+    if (!isARadioButtonChecked()){
+        console.log('callingfx')
+       alert('Please answer all of the questions')
+       return
+    } else{ 
+        console.log('all filled in')
+    }
     //loop through the questions
     questions.forEach(function(question) {  // loop though a node list of questions
         console.log(questions.length)// works - shows 2 questions
+
         let correctAnswer = question.querySelector('.correctAnswer')  //find the correct answer for this question
         console.log(question) //ok
         console.log('correct answer ', correctAnswer.value) //prints correct answer
@@ -34,8 +42,7 @@ submitButton.addEventListener('click', function() {
         //get the user's answer -call the function below - tie it to the correct class
         userAnswer =getRadioValue(questName) 
     
-        console.log('user answer ' , userAnswer) //print the user's answer to Q1 - but not for Q2
-        
+        console.log('user answer ' , userAnswer) 
         if(userAnswer ===correctAnswer.value) {  //if the two answers are the same, add one to the total
             totalScore++
             console.log('total score is ', totalScore)
@@ -43,6 +50,7 @@ submitButton.addEventListener('click', function() {
             console.log('wrong, answer is ' , correctAnswer)
         }
     })
+
     
     //show person's score after looping is complete
     indivScore.innerHTML = `You scored ${totalScore} out of ${questions.length}`
@@ -50,8 +58,8 @@ submitButton.addEventListener('click', function() {
     addResultsToChart(userName, totalScore)
     localStorage.setItem(userName, totalScore)
     findAverage()
-    //addResultsToChart(averageScore, average)
-
+    addResultsToChart(averageScore, average)
+    //}
 
 })
     
@@ -77,11 +85,9 @@ averageButton.addEventListener('click', function() {
 })
 
 function getRadioValue(questionName) { 
-    var ele = document.getElementsByName(questionName); 
+    let ele = document.getElementsByName(questionName); 
       let userAnswer='';
-      //validation- make sure all questions have a radio button selected as an answer
-      //isOneChecked()
-      //validate()
+      
     for(i = 0; i < ele.length; i++) { //loop through radio button elements for each question
         //if the element is checked, then that element's value is the user Answer
         if(ele[i].checked) {  
@@ -111,30 +117,6 @@ function uncheck() {//loop through and set all radio buttons to unchecked
  }
 }
 
-   //this function is not working yet 
-//function isOneChecked() { //function to make sure user selected one radio button for each question
- // Delegate submit action
- /*
- function validate(){
-    if (checkRadio("question1") && checkRadio("question2") && checkRadio("question3")){
-     return true;
-    }else{
-    alert("Please answer all Questions!");
-     return false;
-    }
-    }
-    function checkRadio(name){
-     var radio = document.getElementsByTagName('input');  //error -cannot read property 'question 1' of undefined
-    for (var option in radio){
-    if(radio[option].checked){
-     return true;
-    }
-    }
-    return false;
-    }
-
-*/
-
 function findAverage() {
     let arrayOfValues = Object.values(localStorage);  //stack overflow   
     console.log(arrayOfValues) //works - prints all values in " "
@@ -152,24 +134,32 @@ function findAverage() {
     console.log('average is ', average) //works
     return average;
 }
+   //this function is not working yet 
+
+    function isARadioButtonChecked(){
+        //loop through questions
+         //get all of the Q - they all are div class="questions"
+        let questDivs= document.getElementsByClassName("questions");
+        console.log('number of questions ' , questDivs.length) //correct 
+
+        for(i = 0; i < questDivs.length; i++) {
+            let radioButtons = questDivs[i].getElementsByTagName('input');  
+            //console.log('number of radiobuttons', radioButtons.length)- works 4
+            answered =[]
+            notAnswered=[]
+            for (let t=0; t<radioButtons.length; t++){ //loop through radio buttons in each question
+                console.log('radioButtonResult', radioButtons[t].checked)
+                if(radioButtons[t].checked){
+                    answered.push(true)
+                    console.log('answered' , answered)
+                //return true;  //returning , then not running fx again on next question
+                }
+            }//below gives error - t is not defined - since out of the loop
+            notAnswered.push(radioButtons[t])// make it list which question is not answered
+            console.log('notAnswered', notAnswered)
+            //return false; //if none are checked, it will return false
+        }
+
+    }
 
 
-//graph average?
-
-
-/*
-        https://stackoverflow.com/questions/13060313/checking-if-at-least-one-radio-button-has-been-selected-javascript
-        function check(){
-            var radios = document.getElementsByName("choice");
-       
-            for (var i = 0, len = radios.length; i < len; i++) {
-                 if (radios[i].checked) {
-                     return true;
-                 }
-            }
-       
-            return false;
-        }*/
-
-        
-    
