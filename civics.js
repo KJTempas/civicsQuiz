@@ -9,7 +9,7 @@ let averageButton = document.querySelector('#average')
 let averageScore = document.querySelector('#averageScore')
 //# for id; . for class
 
-localStorage.removeItem("cades") //if you need to remove something
+localStorage.removeItem("Zion") //if you need to remove something; another way to clear local storage?
 
 submitButton.addEventListener('click', function() {
     //when the user clicks the submit button
@@ -121,44 +121,4 @@ function findAverage() {
 
 
 
-   //this function is not working yet -not needed
-//went in submit area
-//insert here function to check that one radio button was selected for each question
-    /*if (!isARadioButtonChecked()){
-        console.log('callingfx')
-       alert('Please answer all of the questions')
-       return
-    } else{ 
-        console.log('all filled in')
-    }*/
-    //loop through the questions
-
-
-/*()
-    function isARadioButtonChecked(){
-        //loop through questions
-         //get all of the Q - they all are div class="questions"
-        let questDivs= document.getElementsByClassName("questions");
-        console.log('number of questions ' , questDivs.length) //correct 
-
-        for(i = 0; i < questDivs.length; i++) {
-            let radioButtons = questDivs[i].getElementsByTagName('input');  
-            //console.log('number of radiobuttons', radioButtons.length)- works 4
-            answered =[]
-            notAnswered=[]
-            for (let t=0; t<radioButtons.length; t++){ //loop through radio buttons in each question
-                console.log('radioButtonResult', radioButtons[t].checked)
-                if(radioButtons[t].checked){
-                    answered.push(true)
-                    console.log('answered' , answered)
-                //return true;  //returning , then not running fx again on next question
-                }
-            }//below gives error - t is not defined - since out of the loop
-            notAnswered.push(radioButtons[t])// make it list which question is not answered
-            console.log('notAnswered', notAnswered)
-            //return false; //if none are checked, it will return false
-        }
-
-    }
-*/
-
+   
