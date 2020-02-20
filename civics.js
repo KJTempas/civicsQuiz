@@ -9,7 +9,7 @@ let averageButton = document.querySelector('#average')
 let averageScore = document.querySelector('#averageScore')
 //# for id; . for class
 
-localStorage.removeItem("dog") //if you need to remove something
+localStorage.removeItem("cades") //if you need to remove something
 
 submitButton.addEventListener('click', function() {
     //when the user clicks the submit button
@@ -22,45 +22,31 @@ submitButton.addEventListener('click', function() {
         alert('Enter a user name')
         return
     }
-    //insert here function to check that one radio button was selected for each question
-    if (!isARadioButtonChecked()){
-        console.log('callingfx')
-       alert('Please answer all of the questions')
-       return
-    } else{ 
-        console.log('all filled in')
-    }
-    //loop through the questions
+    
     questions.forEach(function(question) {  // loop though a node list of questions
-        console.log(questions.length)// works - shows 2 questions
-
+        //console.log(questions.length)// works 
         let correctAnswer = question.querySelector('.correctAnswer')  //find the correct answer for this question
-        console.log(question) //ok
-        console.log('correct answer ', correctAnswer.value) //prints correct answer
+        //console.log(question) //ok
+        //console.log('correct answer ', correctAnswer.value) //prints correct answer
 
         let questName = correctAnswer.getAttribute('name') 
         //get the user's answer -call the function below - tie it to the correct class
         userAnswer =getRadioValue(questName) 
     
-        console.log('user answer ' , userAnswer) 
+        //console.log('user answer ' , userAnswer) 
         if(userAnswer ===correctAnswer.value) {  //if the two answers are the same, add one to the total
             totalScore++
-            console.log('total score is ', totalScore)
+            //console.log('total score is ', totalScore)
         }else {
-            console.log('wrong, answer is ' , correctAnswer)
+            //console.log('wrong, answer is ' , correctAnswer)
         }
     })
 
-    
     //show person's score after looping is complete
     indivScore.innerHTML = `You scored ${totalScore} out of ${questions.length}`
     //call function to update chart
     addResultsToChart(userName, totalScore)
     localStorage.setItem(userName, totalScore)
-    findAverage()
-    addResultsToChart(averageScore, average)
-    //}
-
 })
     
 nextUserButton.addEventListener('click', function() {
@@ -70,24 +56,23 @@ nextUserButton.addEventListener('click', function() {
     indivScore.innerHTML= ""
     //call function to uncheck all radio buttons
     uncheck()  
-    
 })
 
 averageButton.addEventListener('click', function() {
     //call function below
     average =findAverage()
+    let avg=average.toFixed(2) //so only 2 digits past decimal
     //show results
-    averageScore.innerHTML = `Average score is ${average}`
+    averageScore.innerHTML = `Average score is ${avg}`
     //graph average
     let totalScore = average
-    addResultsToChart('average', totalScore)
+    addResultsToChart('average', totalScore) //need this to show only 2 digits past decimal
 
 })
 
 function getRadioValue(questionName) { 
     let ele = document.getElementsByName(questionName); 
       let userAnswer='';
-      
     for(i = 0; i < ele.length; i++) { //loop through radio button elements for each question
         //if the element is checked, then that element's value is the user Answer
         if(ele[i].checked) {  
@@ -97,11 +82,10 @@ function getRadioValue(questionName) {
     return userAnswer
 } 
 
- //based on  w3schools- this fx is working
 function uncheck() {//loop through and set all radio buttons to unchecked
    //w/ help from  https://forums.asp.net/t/1526762.aspx?Uncheck+Radio+button+list
    let correctEl = document.getElementsByClassName("correctAnswer")  //this makes a node list
-   //console.log('number of correct elements' , correctEl.length)  //printing 3 = good
+   //console.log('number of correct elements' , correctEl.length)  // good
     for (let x=0; x<correctEl.length; x++){ //loop through the node list
         if (correctEl[x].checked = true ){  //if element is checked, uncheck it
             correctEl[x].checked = false;
@@ -119,12 +103,11 @@ function uncheck() {//loop through and set all radio buttons to unchecked
 
 function findAverage() {
     let arrayOfValues = Object.values(localStorage);  //stack overflow   
-    console.log(arrayOfValues) //works - prints all values in " "
-    console.log('length of array', arrayOfValues.length)  //good
+    //console.log(arrayOfValues) //works - prints all values in " "
+    //console.log('length of array', arrayOfValues.length)  //good
     let total = 0
     //loop through array and add to total
     for (let i=0; i<arrayOfValues.length; i++) {
-
         let int = Number(arrayOfValues[i])//convert from string to int
         //console.log('number is ', int) //prints number, not string
         total =total+ int  
@@ -134,8 +117,24 @@ function findAverage() {
     console.log('average is ', average) //works
     return average;
 }
-   //this function is not working yet 
 
+
+
+
+   //this function is not working yet -not needed
+//went in submit area
+//insert here function to check that one radio button was selected for each question
+    /*if (!isARadioButtonChecked()){
+        console.log('callingfx')
+       alert('Please answer all of the questions')
+       return
+    } else{ 
+        console.log('all filled in')
+    }*/
+    //loop through the questions
+
+
+/*()
     function isARadioButtonChecked(){
         //loop through questions
          //get all of the Q - they all are div class="questions"
@@ -161,5 +160,5 @@ function findAverage() {
         }
 
     }
-
+*/
 
