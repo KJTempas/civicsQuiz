@@ -7,38 +7,49 @@ let questions = document.querySelectorAll('.questions')  //select all w/ class q
 let nextUserButton = document.querySelector('#nextUser')
 let averageButton = document.querySelector('#average')
 let averageScore = document.querySelector('#averageScore')
+let questionsUrl = "http://localhost:3000/questions"
+let scoresUrl = "http://localhost:3000/scores"
 //# for id; . for class
 
-localStorage.removeItem("Zion") //if you need to remove something; another way to clear local storage?
+localStorage.removeItem("Zion") //if you need to remove something or rt click and clear local storage
+
+//note: to stop server-    Control+C 
+//to start server - in terminal type this:  node_modules/.bin/json-server --watch server.json
+fetch(questionsUrl)
+    .then( resp => resp.json())
+    .then( questions => {
+        questions.forEach(question => {
+            let item = document.createElement('li')
+            item.innerHTML = question.question
+            list.appendChild(item)
+        });
+
+})
+
+
 
 submitButton.addEventListener('click', function() {
     //when the user clicks the submit button
     let totalScore=0
     //get the student name
     let userName = studentNameInput.value
-    console.log('User name = ', userName)  
     // add validation that name >1character
     if(userName.length<1) {
         alert('Enter a user name')
         return
     }
+    //what if 2 people have same name?
+    //loop through local storage - if name already present, alert
+    //or look in json server - if already there, have user enter another name? or last name?
     
     questions.forEach(function(question) {  // loop though a node list of questions
-        //console.log(questions.length)// works 
         let correctAnswer = question.querySelector('.correctAnswer')  //find the correct answer for this question
-        //console.log(question) //ok
-        //console.log('correct answer ', correctAnswer.value) //prints correct answer
-
         let questName = correctAnswer.getAttribute('name') 
         //get the user's answer -call the function below - tie it to the correct class
         userAnswer =getRadioValue(questName) 
     
-        //console.log('user answer ' , userAnswer) 
         if(userAnswer ===correctAnswer.value) {  //if the two answers are the same, add one to the total
             totalScore++
-            //console.log('total score is ', totalScore)
-        }else {
-            //console.log('wrong, answer is ' , correctAnswer)
         }
     })
 
@@ -48,6 +59,28 @@ submitButton.addEventListener('click', function() {
     addResultsToChart(userName, totalScore)
     localStorage.setItem(userName, totalScore)
 })
+//below using json server
+document.querySelector('#submit').addEventListener('click', function() {
+    
+    // for example - you would get this from data the user entered 
+    //let data = { name: 'Cat', score: 9}
+    let data = {name: 'userName', score: 'totalScore'}
+
+    fetch(scoresUrl, { 
+        method: 'POST',  
+        headers: {
+            'Content-Type': 'application/json'
+        }, 
+        body: JSON.stringify(data) 
+        })
+        .then(resp => { 
+            console.log(resp)
+        })
+})
+
+
+
+
     
 nextUserButton.addEventListener('click', function() {
     //clear name input
@@ -81,18 +114,16 @@ function getRadioValue(questionName) {
     } 
     return userAnswer
 } 
-
+//original here
 function uncheck() {//loop through and set all radio buttons to unchecked
    //w/ help from  https://forums.asp.net/t/1526762.aspx?Uncheck+Radio+button+list
    let correctEl = document.getElementsByClassName("correctAnswer")  //this makes a node list
-   //console.log('number of correct elements' , correctEl.length)  // good
     for (let x=0; x<correctEl.length; x++){ //loop through the node list
         if (correctEl[x].checked = true ){  //if element is checked, uncheck it
             correctEl[x].checked = false;
     }
 }
    let wrongEl = document.getElementsByClassName("wrongAnswer")
-   //console.log('number of wrongAnswerButtons', wrongEl.length)  //works
    //loop through and set unchecked to true
    for(let t=0; t<wrongEl.length; t++) {
        if(wrongEl[t].checked=true ){
@@ -101,20 +132,36 @@ function uncheck() {//loop through and set all radio buttons to unchecked
  }
 }
 
+//alternate version - more concise-not working
+/*
+function uncheck()
+//select all elements with input type="radio"
+//let radioButtons = document.getElementsByClassName("wrongAnswer", "correctAnswer") //does not work
+   // let radioButtons = document.querySelectorAll('input[type="radio"]') //does not work
+    let allButtons = document.getElementsByName("choice")
+//input type=radio
+    console.log('number of radioButtons is ',allButtons.length) 
+    for (let x=0; x<radioButtons.length; x++) {
+        radioButtons[x].checked=false;
+    }
+
+    
+*/
+
+
+
+
 function findAverage() {
     let arrayOfValues = Object.values(localStorage);  //stack overflow   
-    //console.log(arrayOfValues) //works - prints all values in " "
-    //console.log('length of array', arrayOfValues.length)  //good
     let total = 0
     //loop through array and add to total
     for (let i=0; i<arrayOfValues.length; i++) {
         let int = Number(arrayOfValues[i])//convert from string to int
-        //console.log('number is ', int) //prints number, not string
         total =total+ int  
     
     }
     let average = total/arrayOfValues.length
-    console.log('average is ', average) //works
+    console.log('average is ', average) 
     return average;
 }
 

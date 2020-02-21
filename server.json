@@ -1,0 +1,44 @@
+
+
+{
+    "questions": [
+      {
+        "id": 1,
+        "question": "How many members are in the U.S. House of Representatives? ",
+        "correctanswer": "435",
+        "wronganswers": [
+          "100",
+          "212",
+          "50"
+        ]
+      },
+      {
+        "id": 2,
+        "question": "In the line of succession, after President and  Vice President, who is next?",
+        "correctanswer": "Speaker of the House",
+        "wronganswers": [
+          "Secretary Of State",
+          "Senate Majority Leader",
+          "Secretary Of Defense"
+        ]
+      },
+    {
+        "id": 3,
+        "question": "How many justices sit on the U.S. Supreme Court? ",
+        "correctanswer": "9",
+        "wronganswers": [
+          "12",
+          "7",
+          "11"
+        ]
+      }
+    ],
+
+    "scores": [
+      {
+        "name": "Cat",
+        "score": 2,
+        "id": 1
+      }
+    ]
+  }
