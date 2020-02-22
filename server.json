@@ -34,9 +34,11 @@
       }
     ],
 
+
+    
     "scores": [
       {
-        "name": "Cat",
+        "name": "userName",
         "score": 2,
         "id": 1
       }

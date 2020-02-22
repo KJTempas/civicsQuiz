@@ -15,13 +15,13 @@ localStorage.removeItem("Zion") //if you need to remove something or rt click an
 
 //note: to stop server-    Control+C 
 //to start server - in terminal type this:  node_modules/.bin/json-server --watch server.json
-fetch(questionsUrl)
-    .then( resp => resp.json())
+fetch(questionsUrl) //go the the questionsUrl and fetch the questions //getting a 404 when server is on
+    .then( resp => resp.json()) //convert object to JSON
     .then( questions => {
-        questions.forEach(question => {
-            let item = document.createElement('li')
-            item.innerHTML = question.question
-            list.appendChild(item)
+        questions.forEach(question => { //loop through all of the questions in server.json
+            let item = document.createElement('li') //create a list item for each question
+            item.innerHTML = question.question //text for each question comes from server
+            list.appendChild(item)  //adding the question to ?? list??
         });
 
 })
@@ -81,7 +81,12 @@ submitButton.addEventListener('click', function() {
 })
 
 //below using json server
-/*
+//npm install json-server
+//node_modules/.bin/json-server --watch server.json   - to start server
+//see server at http://localhost:3000
+//Press control+c to stop server -remember to do this at end of work session!
+
+
 document.querySelector('#submit').addEventListener('click', function() {
     
     // for example - you would get this from data the user entered 
@@ -89,19 +94,29 @@ document.querySelector('#submit').addEventListener('click', function() {
     let data = {name: 'userName', score: 'totalScore'}
 
     fetch(scoresUrl, { 
-        method: 'POST',  
+        method: 'POST',   //post adds scores to json server
         headers: {
             'Content-Type': 'application/json'
         }, 
-        body: JSON.stringify(data) 
+        body: JSON.stringify(data) //converting object into JSON using stringify
         })
         .then(resp => { 
             console.log(resp)
         })
 })
-*/
+//https://www.w3schools.com/js/js_json_intro.asp
+//to convert JSON into an object (like my questions)
+//var myObj = JSON.parse(myJSON);   //where myJSON = k/v pairs in an object - 
 
+// Storing data:
+//myObj = {name: "John", age: 31, city: "New York"};
+//myJSON = JSON.stringify(myObj);
+//localStorage.setItem("testJSON", myJSON);
 
+// Retrieving data:
+//text = localStorage.getItem("testJSON");
+//obj = JSON.parse(text);
+//document.getElementById("demo").innerHTML = obj.name;
 
     
 nextUserButton.addEventListener('click', function() {
