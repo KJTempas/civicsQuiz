@@ -40,7 +40,17 @@ submitButton.addEventListener('click', function() {
     }
     //what if 2 people have same name?
     //loop through local storage - if name already present, alert
-    //or look in json server - if already there, have user enter another name? or last name?
+    let arrayOfKeys = Object.keys(localStorage);   
+    //use arrow notation
+    //arrayOfkeys.forEach(key);{
+        for(let i=0; i<arrayOfKeys.length; i++){
+        if (userName === arrayOfKeys[i]){
+            alert('This name is already in system. Please add your last name ') 
+        }
+    }
+    
+
+    //or look in json server - if already there, have user enter  last name?
     
     questions.forEach(function(question) {  // loop though a node list of questions
         let correctAnswer = question.querySelector('.correctAnswer')  //find the correct answer for this question
@@ -59,7 +69,9 @@ submitButton.addEventListener('click', function() {
     addResultsToChart(userName, totalScore)
     localStorage.setItem(userName, totalScore)
 })
+
 //below using json server
+/*
 document.querySelector('#submit').addEventListener('click', function() {
     
     // for example - you would get this from data the user entered 
@@ -77,7 +89,7 @@ document.querySelector('#submit').addEventListener('click', function() {
             console.log(resp)
         })
 })
-
+*/
 
 
 
@@ -106,7 +118,7 @@ averageButton.addEventListener('click', function() {
 function getRadioValue(questionName) { 
     let ele = document.getElementsByName(questionName); 
       let userAnswer='';
-    for(i = 0; i < ele.length; i++) { //loop through radio button elements for each question
+    for(let i = 0; i < ele.length; i++) { //loop through radio button elements for each question
         //if the element is checked, then that element's value is the user Answer
         if(ele[i].checked) {  
             userAnswer = ele[i].value; 
