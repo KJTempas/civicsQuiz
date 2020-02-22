@@ -48,11 +48,11 @@ submitButton.addEventListener('click', function() {
             alert('This name is already in system. Please add your last name ') 
         }
     }
-    
 
-    //or look in json server - if already there, have user enter  last name?
+    //or look in json server - if already there, have user enter last name
     
     questions.forEach(function(question) {  // loop though a node list of questions
+        wrongAnswerList=[]
         let correctAnswer = question.querySelector('.correctAnswer')  //find the correct answer for this question
         let questName = correctAnswer.getAttribute('name') 
         //get the user's answer -call the function below - tie it to the correct class
@@ -60,7 +60,17 @@ submitButton.addEventListener('click', function() {
     
         if(userAnswer ===correctAnswer.value) {  //if the two answers are the same, add one to the total
             totalScore++
+        }else{ //otherwise, add that question# to the array
+            wrongAnswerList.push(questName)
+        }  //if the wrong answer list has any elements in it, alert the user
+        if (wrongAnswerList.length>0){
+            alert('You got these questions incorrect: ' +  wrongAnswerList)
+            for(let x=0; x<wrongAnswerList.length; x++){ //loop through list and let user know correct answer
+                alert('The correct answer to ' + wrongAnswerList[x] + ' is '  + correctAnswer.value)
+            }
+            
         }
+        
     })
 
     //show person's score after looping is complete
