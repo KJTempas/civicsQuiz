@@ -20,8 +20,24 @@ fetch(questionsUrl) //go the the questionsUrl and fetch the questions //getting 
     .then( questions => {
         questions.forEach(question => { //loop through all of the questions in server.json
             let item = document.createElement('li') //create a list item for each question
-            item.innerHTML = question.question //text for each question comes from server
-            list.appendChild(item)  //adding the question to ?? list??
+            let numberPlusQuestion = question.id + ' ' +  question.question
+            console.log(numberPlusQuestion)
+            item.innerHTML = numberPlusQuestion
+            list.appendChild(item)  //adding the question to ul list in html 
+
+            console.log('correct answer ', question.correctanswer) //works
+            console.log('wrong answers ', question.wronganswers)//works - get array 
+            
+            var x = document.createElement("INPUT");  //w3schools
+            x.setAttribute("type", "radio");
+           // label for=
+            //create a label for the radio button and set the innerHTML of the radio button to question.correctAnswer or wrong
+            //need to randomize these 4 answers
+            //loop through answers - always 4
+            
+
+            
+        
         });
 
 })
