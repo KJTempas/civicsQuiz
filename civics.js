@@ -14,7 +14,7 @@ let scoresUrl = "http://localhost:3000/scores"
 localStorage.removeItem("Zion") //if you need to remove something or rt click and clear local storage
 
 //note: to stop server-    Control+C 
-//to start server - in terminal type this:  node_modules/.bin/json-server --watch server.json
+//to start server - in terminal type this:  node_modules/.bin/json-server --watch server.json OR up arrow in terminal
 fetch(questionsUrl) //go the the questionsUrl and fetch the questions //getting a 404 when server is on
     .then( resp => resp.json()) //convert object to JSON
     .then( questions => {
@@ -25,15 +25,22 @@ fetch(questionsUrl) //go the the questionsUrl and fetch the questions //getting 
             item.innerHTML = numberPlusQuestion
             list.appendChild(item)  //adding the question to ul list in html 
 
-            console.log('correct answer ', question.correctanswer) //works
-            console.log('wrong answers ', question.wronganswers)//works - get array 
+            console.log('correct answer ', question.correctAnswer) //works
+            console.log('wrong answers ', question.wrongAnswers)//works - get array 
             
-            var x = document.createElement("INPUT");  //w3schools
-            x.setAttribute("type", "radio");
+            let radioButton = document.createElement("INPUT");  //w3schools - create a radio button element
+            radioButton.setAttribute("type", "radio");
+            radioButton.setAttribute("name", 'quest' + question.id)
+            radioButton.setAttribute("value", "question.correctAnswer")
+            radioButton.setAttribute("class", "correctAnswer")
+            radioButton.innerText = "question.correctAnswer"
+            item.append(radioButton) // need to link raio button to li (item)
            // label for=
             //create a label for the radio button and set the innerHTML of the radio button to question.correctAnswer or wrong
             //need to randomize these 4 answers
             //loop through answers - always 4
+            let allAnswers = question.correctAnswer +',' + question.wrongAnswers
+            console.log('all answers' , allAnswers)
             
 
             
@@ -84,9 +91,7 @@ submitButton.addEventListener('click', function() {
             for(let x=0; x<wrongAnswerList.length; x++){ //loop through list and let user know correct answer
                 alert('The correct answer to ' + wrongAnswerList[x] + ' is '  + correctAnswer.value)
             }
-            
-        }
-        
+        } 
     })
 
     //show person's score after looping is complete

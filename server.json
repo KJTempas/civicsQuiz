@@ -1,46 +1,46 @@
-
-
 {
-    "questions": [
-      {
-        "id": 1,
-        "question": "How many members are in the U.S. House of Representatives? ",
-        "correctanswer": "435",
-        "wronganswers": [
-          "100",
-          "212",
-          "50"
-        ]
-      },
-      {
-        "id": 2,
-        "question": "In the line of succession, after President and  Vice President, who is next?",
-        "correctanswer": "Speaker of the House",
-        "wronganswers": [
-          "Secretary Of State",
-          "Senate Majority Leader",
-          "Secretary Of Defense"
-        ]
-      },
+  "questions": [
     {
-        "id": 3,
-        "question": "How many justices sit on the U.S. Supreme Court? ",
-        "correctanswer": "9",
-        "wronganswers": [
-          "12",
-          "7",
-          "11"
-        ]
-      }
-    ],
-
-
-    
-    "scores": [
-      {
-        "name": "userName",
-        "score": 2,
-        "id": 1
-      }
-    ]
-  }
+      "id": 1,
+      "question": "How many members are in the U.S. House of Representatives? ",
+      "correctAnswer": "435",
+      "wrongAnswers": [
+        "100",
+        "212",
+        "50"
+      ]
+    },
+    {
+      "id": 2,
+      "question": "In the line of succession, after President and  Vice President, who is next?",
+      "correctAnswer": "Speaker of the House",
+      "wrongAnswers": [
+        "Secretary Of State",
+        "Senate Majority Leader",
+        "Secretary Of Defense"
+      ]
+    },
+    {
+      "id": 3,
+      "question": "How many justices sit on the U.S. Supreme Court? ",
+      "correctAnswer": "9",
+      "wrongAnswers": [
+        "12",
+        "7",
+        "11"
+      ]
+    }
+  ],
+  "scores": [
+    {
+      "name": "userName",
+      "score": 2,
+      "id": 1
+    },
+    {
+      "name": "userName",
+      "score": "totalScore",
+      "id": 2
+    }
+  ]
+}
