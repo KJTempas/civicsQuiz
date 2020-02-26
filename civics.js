@@ -15,33 +15,70 @@ let scoresUrl = "http://localhost:3000/scores"
 
 //note: to stop server-    Control+C 
 //to start server - in terminal type this:  node_modules/.bin/json-server --watch server.json OR up arrow in terminal
+
 fetch(questionsUrl) //go the the questionsUrl and fetch the questions //getting a 404 when server is on
     .then( resp => resp.json()) //convert object to JSON
     .then( questions => {
+
+        let questionCounter = 1;
+
+        let questionContainer = document.querySelector('#question-container')
+
         questions.forEach(question => { //loop through all of the questions in server.json
-            let item = document.createElement('li') //create a list item for each question
-            let numberPlusQuestion = question.id + ' ' +  question.question
-            console.log(numberPlusQuestion)
-            item.innerHTML = numberPlusQuestion
-            list.appendChild(item)  //adding the question to ul list in html 
+
+
+/*
+ <div class="questions">
+    <h4>Question #1</h4>
+    How many members are in the U.S. House of Representatives?<br>
+    
+    <label><input type="radio" name="quest1" name="choice" value="100" class="wrongAnswer" /> 100</label><br>
+    <label><input type="radio" name="quest1"  name="choice" value="435" class="correctAnswer" /> 435</label><br>
+    <label><input type="radio" name="quest1"  name="choice" value="211" class="wrongAnswer" /> 212</label><br>
+    <label><input type="radio" name="quest1"  name="choice" value="50" class="wrongAnswer"/> 50</label><br>
+</div>
+
+ */
+
+            let item = document.createElement('div') //create a list item for each question
+            item.classList.add('questions')
+
+            let header = document.createElement('h4')
+            header.innerHTML = `Question ${questionCounter}`
+            questionCounter++
+
+            item.appendChild(header)
+
+            let questionText = document.createElement('p')
+            questionText.innerHTML = question.question
+            item.appendChild(questionText)
+
+            // let numberPlusQuestion = question.id + ' ' +  question.question
+            // console.log(numberPlusQuestion)
+            // item.innerHTML = numberPlusQuestion
+             questionContainer.appendChild(item)  //adding the question to ul list in html 
 
             console.log('correct answer ', question.correctAnswer) //works
             console.log('wrong answers ', question.wrongAnswers)//works - get array 
+
+            let allAnswerElements = []
+
+            let correct = buildAnswerElement(question.correctAnswer, question.id, true)  // is correct answer 
+
+            allAnswerElements.push(correct)
             //need a break element here so radio button is on a new line
 
-            //answers.forEach(answer =>{
-               // let radioButton = document.createElement("INPUT");  //w3schools - create a radio button element
-              //  radioButton.setAttribute("type", "radio"); 
-           // })
-            let radioButton = document.createElement("INPUT");  //w3schools - create a radio button element
-            radioButton.setAttribute("type", "radio");
-            radioButton.setAttribute("name", 'quest' + question.id)
-            radioButton.setAttribute("value", "question.correctAnswer")
-            radioButton.setAttribute("class", "correctAnswer")
-        
-            radioButton.innerText = "question.correctAnswer" 
-            item.append(radioButton) // need to link raio button to li (item)
-           // <label for=" ">Answer goes here</label>  //need one of these for each answer
+            question.wrongAnswers.forEach(answer =>{
+                wrong = buildAnswerElement(answer, question.id, false)
+                allAnswerElements.push(wrong)
+            })
+
+            allAnswerElements = shuffle(allAnswerElements)  //todo 
+         
+            // todo loop over 
+           
+           
+            // <label for=" ">Answer goes here</label>  //need one of these for each answer
             //create a label for the radio button and set the innerHTML of the radio button to question.correctAnswer or wrong
             //need to randomize these 4 answers
             //Collections.shuffle(array of answers)
@@ -49,13 +86,50 @@ fetch(questionsUrl) //go the the questionsUrl and fetch the questions //getting 
             let allAnswers = question.correctAnswer +',' + question.wrongAnswers
             console.log('all answers' , allAnswers)
             
-
-            
-        
+            allAnswerElements.forEach( function(el) { 
+                item.appendChild(el)
+            })
+    
         });
 
 })
 
+function shuffle(arrayOfElements) {
+    let shuffled = [arrayOfElements[1], arrayOfElements[3], arrayOfElements[0], arrayOfElements[2]]
+    return shuffled
+
+    // todo improve
+    // to shuffle - remove an element at random; insert into new array at random position 
+
+}
+
+/** generic method to make one answer radio button  */
+function buildAnswerElement(answerText, questionId, isCorrectAnswer) {
+    // create label, create radio button, return element with both in 
+
+    let questionLabel = document.createElement('label')
+    // todo set attributes 
+    questionLabel.innerHTML = answerText   //question.correctAnswer;
+
+    let radioButton = document.createElement("INPUT");  //w3schools - create a radio button element
+    // todo set unique id to associate with label 
+    radioButton.setAttribute("type", "radio");
+    radioButton.setAttribute("name", 'quest' + questionId)
+    radioButton.setAttribute("value", "question.correctAnswer")
+    radioButton.setAttribute("class", "correctAnswer")
+
+    //todo if this is a correct answer, set appropriate attributes 
+
+    radioButton.innerText = "question.correctAnswer" 
+    //  item.append(radioButton) // need to link raio button to li (item)
+
+    questionLabel.appendChild(radioButton)
+
+    // item.append(questionLabel)
+    
+    return questionLabel  // todo think about the structure of the html returned 
+
+}
 
 
 submitButton.addEventListener('click', function() {
