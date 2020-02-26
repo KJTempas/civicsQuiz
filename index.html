@@ -28,13 +28,17 @@
         <input id="name" type="text" class="form-control" name="name"required> 
         <br>
 
-    <ul id="list"></ul>  <!--where the question from the json file wil go-->
+    <div id="question-container">
+        Questions go here.
+
+
+    </div>  <!--where the question from the json file wil go-->
       
  <div class="questions">
     <h4>Question #1</h4>
     How many members are in the U.S. House of Representatives?<br>
     
-    <label><input type="radio" name="quest1" name="choice" value="100" class="wrongAnswer" /> 100</label><br>
+    <input id="q1_a1" type="radio" name="quest1" name="choice" value="100" class="wrongAnswer" /><label for="q1_a1">100</label><br>
     <label><input type="radio" name="quest1"  name="choice" value="435" class="correctAnswer" /> 435</label><br>
     <label><input type="radio" name="quest1"  name="choice" value="211" class="wrongAnswer" /> 212</label><br>
     <label><input type="radio" name="quest1"  name="choice" value="50" class="wrongAnswer"/> 50</label><br>
