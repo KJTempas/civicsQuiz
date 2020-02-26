@@ -11,7 +11,7 @@ let questionsUrl = "http://localhost:3000/questions"
 let scoresUrl = "http://localhost:3000/scores"
 //# for id; . for class
 
-localStorage.removeItem("Zion") //if you need to remove something or rt click and clear local storage
+//localStorage.removeItem("Zion") //if you need to remove something or rt click and clear local storage
 
 //note: to stop server-    Control+C 
 //to start server - in terminal type this:  node_modules/.bin/json-server --watch server.json OR up arrow in terminal
@@ -27,17 +27,24 @@ fetch(questionsUrl) //go the the questionsUrl and fetch the questions //getting 
 
             console.log('correct answer ', question.correctAnswer) //works
             console.log('wrong answers ', question.wrongAnswers)//works - get array 
-            
+            //need a break element here so radio button is on a new line
+
+            //answers.forEach(answer =>{
+               // let radioButton = document.createElement("INPUT");  //w3schools - create a radio button element
+              //  radioButton.setAttribute("type", "radio"); 
+           // })
             let radioButton = document.createElement("INPUT");  //w3schools - create a radio button element
             radioButton.setAttribute("type", "radio");
             radioButton.setAttribute("name", 'quest' + question.id)
             radioButton.setAttribute("value", "question.correctAnswer")
             radioButton.setAttribute("class", "correctAnswer")
-            radioButton.innerText = "question.correctAnswer"
+        
+            radioButton.innerText = "question.correctAnswer" 
             item.append(radioButton) // need to link raio button to li (item)
-           // label for=
+           // <label for=" ">Answer goes here</label>  //need one of these for each answer
             //create a label for the radio button and set the innerHTML of the radio button to question.correctAnswer or wrong
             //need to randomize these 4 answers
+            //Collections.shuffle(array of answers)
             //loop through answers - always 4
             let allAnswers = question.correctAnswer +',' + question.wrongAnswers
             console.log('all answers' , allAnswers)
