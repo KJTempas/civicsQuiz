@@ -20,74 +20,82 @@ fetch(questionsUrl) //go the the questionsUrl and fetch the questions //getting 
     .then( resp => resp.json()) //convert object to JSON
     .then( questions => {
         
-            let questionCounter =0
+            let questionCounter = 1;
             
             let questionContainer = document.querySelector('#question-container')
             questions.forEach(question => { //loop through all of the questions in server.json
             
                 let item=document.createElement('div')
-                //create a list itme for each question
+                //each question will go in its own div
                 item.classList.add('questions')
 
+                //inside each div the question#  will be a header4 element
                 let header = document.createElement('h4')
                 header.innerHTML= `Question ${questionCounter}`
-                questionCounter++
+                questionCounter++  
 
-                item.appendChild(header)
+                item.appendChild(header) //append the header to the div element
 
                 let questionText= document.createElement('p')
-                questionText.innerHTML = question.qusetion
-                item.appendChild(questionText)
-
-                //adding the question to ul list in html
+                questionText.innerHTML = question.question
+                item.appendChild(questionText) //append the actual question to the div
                 
-
-            console.log('correct answer ', question.correctAnswer) //works
-            console.log('wrong answers ', question.wrongAnswers)//works - get array 
+                questionContainer.appendChild(item)
             
-            let allAnswerElements = []
+            let allAnswerElements = [] //array to hold all answers
 
             let correct = buildAnswerElement(question.correctAnswer, question.id, true) // is correct answer
-            allAnswerElements.push(correct)
+            allAnswerElements.push(correct) //add correct to the array
+            //console.log(allAnswerElements)
 
-            question.wrongAnswers.forEach (answer =>{
+            question.wrongAnswers.forEach (answer =>{ //loop through the wrong answers, and add them to the array
                 wrong = buildAnswerElement(answer, question.id, false)
                 allAnswerElements.push(wrong)
             })
-
-            allAnswerElements = shuffle(allAnswerElements) //todo
+            console.log(allAnswerElements)  
+            allAnswerElements = shuffle(allAnswerElements) //calls function below
 
             //todo loop over
+            //allAnswerElements.forEach(answer =>{
 
-
-            //>label for=" "> Answer goes here</label>
+           // })
+            
+            // <label for=" " > Answer goes here</label>
             //need one of these for each answer
-            
-            
-
-            
-        
-            //create a label for the radio button and set the innerHTML of the radio button to question.correctAnswer or wrong
-            //need to randomize these 4 answers
-            //Collections.shuffle(array of answers)
-            //loop through answers - always 4
-            let answers = question.correctAnswer +',' + question.wrongAnswers
-            console.log('all answers' , allAnswers)
-            
+    
             allAnswerElements.forEach( function(el) {
-                item.appendChild(el)
+                item.appendChild(el) //add all of the answers to the div
             })
-            
         
         });
 
 })
+
+function shuffle(arrayOfElements) {
+  // let shuffled = [arrayOfElements[1],  //this is claras example to get data to show
+//arrayOfElements[3], arrayOfElements[0], arrayOfElements[2]]
+//return shuffled
+
 //todo improve this function
 //to shuffle - remove an element at random; insert into new array at random position
-function shuffle(arrayOfElements) {
-    let shuffled = [arrayOfElements[1],
-arrayOfElements[3], arrayOfElements[0], arrayOfElements[2]]
+
+//from w3resource and stackoverflow
+    var currentIndex = arrayOfElements.length, tempValue, randomIndex;
+// While there are elements in the array
+    while (0!==currentIndex) {
+// Pick a random index
+        randomIndex = Math.floor(Math.random() * currentIndex);
+// Decrease ctr by 1
+        currentIndex--;
+// And swap it w/ current element
+        tempValue = arrayOfElements[currentIndex];
+        arrayOfElements[currentIndex] = arrayOfElements[randomIndex];
+        arrayOfElements[randomIndex] = tempValue;
+    }
+    return arrayOfElements;
 }
+
+
 
 /** generic method to make one answer radio button  */
 function buildAnswerElement(answerText, questionId, isCorrectAnswer) {
@@ -95,9 +103,9 @@ function buildAnswerElement(answerText, questionId, isCorrectAnswer) {
 
     let questionLabel=document.createElement('label')
     //todo set attributes
-    questionLabel.innerHTML = answerText//question.correctAnswer;
+    questionLabel.innerHTML = answerText
 
-    let radioButton = document.createElement('INPUT');
+    let radioButton = document.createElement("INPUT");
     //w3schools - create a radio button element
     //todo set unique id to associate with label
     radioButton.setAttribute("type", "radio");
@@ -108,13 +116,13 @@ function buildAnswerElement(answerText, questionId, isCorrectAnswer) {
     //todo if this is a correct answer, set appropriate attributes
 
     radioButton.innerText = "question.correctAnswer"
-    //item.append(radioButton) //need to link radio button to li (item)
-
-    questionLabel.appendChild(radioButton)
-
+    
+    questionLabel.appendChild(radioButton) //link the button and the label
+    //radioButton.appendChild(questionLabel)
     //item.append(questionLabel)
 
     return questionLabel
+    //return radioButton
     //todo think about the structure of the html returned
 }
 
