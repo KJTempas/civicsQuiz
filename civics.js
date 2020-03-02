@@ -19,7 +19,7 @@ let scoresUrl = "http://localhost:3000/scores"
 fetch(questionsUrl) //go the the questionsUrl and fetch the questions //getting a 404 when server is on
     .then( resp => resp.json()) //convert object to JSON
     .then( questions => {
-        
+                                //code 304 in terminal means not modified - question file is not modified
             let questionCounter = 1;
             
             let questionContainer = document.querySelector('#question-container')
@@ -34,41 +34,33 @@ fetch(questionsUrl) //go the the questionsUrl and fetch the questions //getting 
                 header.innerHTML= `Question ${questionCounter}`
                 questionCounter++  
 
-                item.appendChild(header) //append the header to the div element
+                item.appendChild(header) //add the header to the div element
 
                 let questionText= document.createElement('p')
                 questionText.innerHTML = question.question
-                item.appendChild(questionText) //append the actual question to the div
+                item.appendChild(questionText) //add the question to the div
                 
                 questionContainer.appendChild(item)
             
-            let allAnswerElements = [] //array to hold all answers
 
+            let allAnswerElements = [] //array to hold all answers
+                    //call buildAnswerElement function once for each answer, and add these to the array
             let correct = buildAnswerElement(question.correctAnswer, question.id, true) // is correct answer
             allAnswerElements.push(correct) //add correct to the array
-            //console.log(allAnswerElements)
 
             question.wrongAnswers.forEach (answer =>{ //loop through the wrong answers, and add them to the array
                 wrong = buildAnswerElement(answer, question.id, false)
                 allAnswerElements.push(wrong)
             })
-            console.log(allAnswerElements)  
-            allAnswerElements = shuffle(allAnswerElements) //calls function below
-
-            //todo loop over
-            //allAnswerElements.forEach(answer =>{
-
-           // })
             
-            // <label for=" " > Answer goes here</label>
-            //need one of these for each answer
+            allAnswerElements = shuffle(allAnswerElements) //calls function below
     
             allAnswerElements.forEach( function(el) {
-                item.appendChild(el) //add all of the answers to the div
+                //let eachAnswer = document.createElement('p')
+                //eachAnswer.innerHTML = 
+                item.appendChild(el) //add all of the answers to the div(item)
             })
-        
         });
-
 })
 
 function shuffle(arrayOfElements) {
@@ -85,7 +77,7 @@ function shuffle(arrayOfElements) {
     while (0!==currentIndex) {
 // Pick a random index
         randomIndex = Math.floor(Math.random() * currentIndex);
-// Decrease ctr by 1
+// Decrease currentIndex by 1
         currentIndex--;
 // And swap it w/ current element
         tempValue = arrayOfElements[currentIndex];
@@ -100,7 +92,6 @@ function shuffle(arrayOfElements) {
 /** generic method to make one answer radio button  */
 function buildAnswerElement(answerText, questionId, isCorrectAnswer) {
     //create label, create radio button, return element with both in
-
     let questionLabel=document.createElement('label')
     //todo set attributes
     questionLabel.innerHTML = answerText
@@ -114,16 +105,19 @@ function buildAnswerElement(answerText, questionId, isCorrectAnswer) {
     radioButton.setAttribute("class", "correctAnswer")
      
     //todo if this is a correct answer, set appropriate attributes
+    if(isCorrectAnswer) {
+        radioButton.setAttribute("id", "correct")
+    }
 
     radioButton.innerText = "question.correctAnswer"
     
+    
     questionLabel.appendChild(radioButton) //link the button and the label
-    //radioButton.appendChild(questionLabel)
-    //item.append(questionLabel)
 
     return questionLabel
-    //return radioButton
+    
     //todo think about the structure of the html returned
+    //need each answer on a new line, w radioButton on left and answer on right
 }
 
 
@@ -189,10 +183,11 @@ document.querySelector('#submit').addEventListener('click', function() {
     
     // for example - you would get this from data the user entered 
     //let data = { name: 'Cat', score: 9}
+    //http://localhost:3000/scores",
     let data = {name: 'userName', score: 'totalScore'}
 
     fetch(scoresUrl, { 
-        method: 'POST',   //post adds scores to json server
+        method: 'POST',   //post adds scores to json server;  code 201 means created(request has been fulfilled and a new resource created)
         headers: {
             'Content-Type': 'application/json'
         }, 
