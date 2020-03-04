@@ -67,8 +67,7 @@ function shuffle(arrayOfElements) {
   // let shuffled = [arrayOfElements[1],  //this is claras example to get data to show
 //arrayOfElements[3], arrayOfElements[0], arrayOfElements[2]]
 //return shuffled
-
-//todo improve this function
+//todo improve this function-done
 //to shuffle - remove an element at random; insert into new array at random position
 
 //from w3resource and stackoverflow
@@ -122,7 +121,7 @@ function buildAnswerElement(answerText, questionId, isCorrectAnswer) {
 
 
 
-submitButton.addEventListener('click', function() {
+submitButton.addEventListener('click', function() {  //this is from original local storage
     //when the user clicks the submit button
     let totalScore=0
     //get the student name
@@ -143,7 +142,6 @@ submitButton.addEventListener('click', function() {
         }
     }
 
-    //or look in json server - if already there, have user enter last name
     
     questions.forEach(function(question) {  // loop though a node list of questions
         wrongAnswerList=[]
@@ -262,24 +260,6 @@ function uncheck() {//loop through and set all radio buttons to unchecked
  }
 }
 
-//alternate version - more concise-not working
-/*
-function uncheck()
-//select all elements with input type="radio"
-//let radioButtons = document.getElementsByClassName("wrongAnswer", "correctAnswer") //does not work
-   // let radioButtons = document.querySelectorAll('input[type="radio"]') //does not work
-    let allButtons = document.getElementsByName("choice")
-//input type=radio
-    console.log('number of radioButtons is ',allButtons.length) 
-    for (let x=0; x<radioButtons.length; x++) {
-        radioButtons[x].checked=false;
-    }
-
-    
-*/
-
-
-
 
 function findAverage() {
     let arrayOfValues = Object.values(localStorage);  //stack overflow   
@@ -295,6 +275,29 @@ function findAverage() {
     return average;
 }
 
+function calculateScoreForIndiv(){  //new function for json program- started from copy of above in submit
+    //how to calculate from json
+
+    questions.forEach(function(question) {  // loop though a node list of questions
+        wrongAnswerList=[]
+        let correctAnswer = question.querySelector('.correctAnswer')  //find the correct answer for this question
+        let questName = correctAnswer.getAttribute('name') 
+        //get the user's answer -call the function below - tie it to the correct class
+        userAnswer =getRadioValue(questName) 
+    
+        if(userAnswer ===correctAnswer.value) {  //if the two answers are the same, add one to the total
+            totalScore++
+        }else{ //otherwise, add that question# to the array
+            wrongAnswerList.push(questName)
+        }  //if the wrong answer list has any elements in it, alert the user
+        if (wrongAnswerList.length>0){
+            alert('You got these questions incorrect: ' +  wrongAnswerList)
+            for(let x=0; x<wrongAnswerList.length; x++){ //loop through list and let user know correct answer
+                alert('The correct answer to ' + wrongAnswerList[x] + ' is '  + correctAnswer.value)
+            }
+        } 
+    })
+}
 
 
 
