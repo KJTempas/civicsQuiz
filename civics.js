@@ -3,7 +3,7 @@
 let indivScore=document.querySelector('#yourScore')
 let submitButton = document.querySelector('#submit')
 let studentNameInput = document.querySelector('#name')
-let questions = document.querySelectorAll('.questions')  //select all w/ class questions
+
 let nextUserButton = document.querySelector('#nextUser')
 let averageButton = document.querySelector('#average')
 let averageScore = document.querySelector('#averageScore')
@@ -25,22 +25,23 @@ fetch(questionsUrl) //go the the questionsUrl and fetch the questions //getting 
             let questionContainer = document.querySelector('#question-container')
             questions.forEach(question => { //loop through all of the questions in server.json
             
-                let item=document.createElement('div')
-                //each question will go in its own div
-                item.classList.add('questions')
+                let singleQuestElement=document.createElement('div')
+                //each question will go in its own div that has the class name 'questions'
+                singleQuestElement.classList.add('questions')
 
                 //inside each div the question#  will be a header4 element
                 let header = document.createElement('h4')
                 header.innerHTML= `Question ${questionCounter}`
                 questionCounter++  
 
-                item.appendChild(header) //add the header to the div element
+                singleQuestElement.appendChild(header) //add the header to the div element
 
                 let questionText= document.createElement('p')
                 questionText.innerHTML = question.question
-                item.appendChild(questionText) //add the question to the div
+                singleQuestElement.appendChild(questionText) //add the question to the div
                 
-                questionContainer.appendChild(item)
+
+                questionContainer.appendChild(singleQuestElement)
             
 
             let allAnswerElements = [] //array to hold all answers
@@ -52,24 +53,20 @@ fetch(questionsUrl) //go the the questionsUrl and fetch the questions //getting 
                 wrong = buildAnswerElement(answer, question.id, false)
                 allAnswerElements.push(wrong)
             })
-            
+            //add a class name to all answer elements here
+            //allAnswerElements.setAttribute("class", "questions")
+
             allAnswerElements = shuffle(allAnswerElements) //calls function below
     
             allAnswerElements.forEach( function(el) {
-                //let eachAnswer = document.createElement('p')
-                //eachAnswer.innerHTML = 
-                item.appendChild(el) //add all of the answers to the div(item)
+                singleQuestElement.appendChild(el) //add all of the answers to the div(item)
             })
         });
+        // don't do this - all questions disappear ---let questions = document.querySelectorAll('.questions')  //select all w/ class questions
+        //need to assign the class name when each question is created
 })
 
 function shuffle(arrayOfElements) {
-  // let shuffled = [arrayOfElements[1],  //this is claras example to get data to show
-//arrayOfElements[3], arrayOfElements[0], arrayOfElements[2]]
-//return shuffled
-//todo improve this function-done
-//to shuffle - remove an element at random; insert into new array at random position
-
 //from w3resource and stackoverflow
     var currentIndex = arrayOfElements.length, tempValue, randomIndex;
 // While there are elements in the array
@@ -91,34 +88,32 @@ function shuffle(arrayOfElements) {
 /** generic method to make one answer radio button  */
 function buildAnswerElement(answerText, questionId, isCorrectAnswer) {
     //create label, create radio button, return element with both in
+    let answerEl = document.createElement('div')
     let questionLabel=document.createElement('label')
     //todo set attributes
     questionLabel.innerHTML = answerText
 
     let radioButton = document.createElement("INPUT");
     //w3schools - create a radio button element
-    //todo set unique id to associate with label
     radioButton.setAttribute("type", "radio");
     radioButton.setAttribute("name", 'quest' + questionId)
-    radioButton.setAttribute("value", "question.correctAnswer")
-    radioButton.setAttribute("class", "correctAnswer")
+    radioButton.setAttribute("value", answerText)   ///answers need to have a value for use in getRadioButton method
+                                                        //but how to assign one since this is a generic method; 
      
-    //todo if this is a correct answer, set appropriate attributes
+    //todo if this is a correct answer, set id to correct 
     if(isCorrectAnswer) {
         radioButton.setAttribute("id", "correct")
     }
 
-    radioButton.innerText = "question.correctAnswer"
-    
-    
+    //radioButton.innerText = "question.correctAnswer" //????needed why
+    //radioButton.innerText = "question."
+
     questionLabel.appendChild(radioButton) //link the button and the label
-
-    return questionLabel
+    answerEl.appendChild(questionLabel)
     
-    //todo think about the structure of the html returned
-    //need each answer on a new line, w radioButton on left and answer on right
+    return answerEl
+    
 }
-
 
 
 submitButton.addEventListener('click', function() {  //this is from original local storage
@@ -131,29 +126,29 @@ submitButton.addEventListener('click', function() {  //this is from original loc
         alert('Enter a user name')
         return
     }
-    //what if 2 people have same name?
+    
     //loop through local storage - if name already present, alert
     let arrayOfKeys = Object.keys(localStorage);   
-    //use arrow notation
-    //arrayOfkeys.forEach(key);{
         for(let i=0; i<arrayOfKeys.length; i++){
         if (userName === arrayOfKeys[i]){
             alert('This name is already in system. Please add your last name ') 
         }
     }
 
-    
+    let questions = document.querySelectorAll('.questions')  //select all w/ class 'questions' - all question div elements
+
     questions.forEach(function(question) {  // loop though a node list of questions
         wrongAnswerList=[]
-        let correctAnswer = question.querySelector('.correctAnswer')  //find the correct answer for this question
-        let questName = correctAnswer.getAttribute('name') 
+        //let correctAnswer = question.querySelector('.correctAnswer')  //find the correct answer for this question
+        let correctAnswer = question.querySelector('#correct')  //the correct answer has id=correct
+        let questNumber = correctAnswer.getAttribute('name') //name is quest1 or quest2
         //get the user's answer -call the function below - tie it to the correct class
-        userAnswer =getRadioValue(questName) 
+        userAnswer =getRadioValue(questNumber) 
     
         if(userAnswer ===correctAnswer.value) {  //if the two answers are the same, add one to the total
             totalScore++
         }else{ //otherwise, add that question# to the array
-            wrongAnswerList.push(questName)
+            wrongAnswerList.push(questNumber)
         }  //if the wrong answer list has any elements in it, alert the user
         if (wrongAnswerList.length>0){
             alert('You got these questions incorrect: ' +  wrongAnswerList)
@@ -169,13 +164,6 @@ submitButton.addEventListener('click', function() {  //this is from original loc
     addResultsToChart(userName, totalScore)
     localStorage.setItem(userName, totalScore)
 })
-
-//below using json server
-//npm install json-server
-//node_modules/.bin/json-server --watch server.json   - to start server
-//see server at http://localhost:3000
-//Press control+c to stop server -remember to do this at end of work session!
-
 
 document.querySelector('#submit').addEventListener('click', function() {
     
@@ -231,8 +219,10 @@ averageButton.addEventListener('click', function() {
 
 })
 
-function getRadioValue(questionName) { 
-    let ele = document.getElementsByName(questionName); 
+//function getRadioValue(questionName) { //original
+    function getRadioValue(questNumber) { 
+    //let ele = document.getElementsByName(questionName); 
+    let ele = document.getElementsByName(questNumber); 
       let userAnswer='';
     for(let i = 0; i < ele.length; i++) { //loop through radio button elements for each question
         //if the element is checked, then that element's value is the user Answer
