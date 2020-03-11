@@ -90,6 +90,7 @@ function buildAnswerElement(answerText, questionId, isCorrectAnswer) {
     //create label, create radio button, return element with both in
     let answerEl = document.createElement('div')
     let questionLabel=document.createElement('label')
+    
     //todo set attributes
     questionLabel.innerHTML = answerText
 
@@ -97,16 +98,15 @@ function buildAnswerElement(answerText, questionId, isCorrectAnswer) {
     //w3schools - create a radio button element
     radioButton.setAttribute("type", "radio");
     radioButton.setAttribute("name", 'quest' + questionId)
+    radioButton.setAttribute("name", "button")
     radioButton.setAttribute("value", answerText)   ///answers need to have a value for use in getRadioButton method
                                                         //but how to assign one since this is a generic method; 
      
     //todo if this is a correct answer, set id to correct 
     if(isCorrectAnswer) {
         radioButton.setAttribute("id", "correct")
+        radioButton.setAttribute("name", 'quest' + questionId)
     }
-
-    //radioButton.innerText = "question.correctAnswer" //????needed why
-    //radioButton.innerText = "question."
 
     questionLabel.appendChild(radioButton) //link the button and the label
     answerEl.appendChild(questionLabel)
@@ -118,7 +118,7 @@ function buildAnswerElement(answerText, questionId, isCorrectAnswer) {
 
 submitButton.addEventListener('click', function() {  //this is from original local storage
     //when the user clicks the submit button
-    let totalScore=0
+    //let totalScore=0
     //get the student name
     let userName = studentNameInput.value
     // add validation that name >1character
@@ -136,8 +136,9 @@ submitButton.addEventListener('click', function() {  //this is from original loc
     }
 
     let questions = document.querySelectorAll('.questions')  //select all w/ class 'questions' - all question div elements
+    totalScore=calculateScoreForIndiv() //call this function below
 
-    questions.forEach(function(question) {  // loop though a node list of questions
+   /* questions.forEach(function(question) {  // loop though a node list of questions
         wrongAnswerList=[]
         //let correctAnswer = question.querySelector('.correctAnswer')  //find the correct answer for this question
         let correctAnswer = question.querySelector('#correct')  //the correct answer has id=correct
@@ -156,11 +157,12 @@ submitButton.addEventListener('click', function() {  //this is from original loc
                 alert('The correct answer to ' + wrongAnswerList[x] + ' is '  + correctAnswer.value)
             }
         } 
-    })
+    })*/
 
     //show person's score after looping is complete
     indivScore.innerHTML = `You scored ${totalScore} out of ${questions.length}`
     //call function to update chart
+    
     addResultsToChart(userName, totalScore)
     localStorage.setItem(userName, totalScore)
 })
@@ -220,14 +222,16 @@ averageButton.addEventListener('click', function() {
 })
 
 //function getRadioValue(questionName) { //original
-    function getRadioValue(questNumber) { 
-    //let ele = document.getElementsByName(questionName); 
-    let ele = document.getElementsByName(questNumber); 
+//function getRadioValue(questNumber)
+    function getRadioValue() { 
+        //problem HERE
+    let radioButtonEle = document.getElementsByName("button"); 
+    console.log('should be 4 radio buttons and there are : ', radioButtonEle.length) //9?
       let userAnswer='';
-    for(let i = 0; i < ele.length; i++) { //loop through radio button elements for each question
+    for(let i = 0; i < radioButtonEle.length; i++) { //loop through radio button elements for each question
         //if the element is checked, then that element's value is the user Answer
-        if(ele[i].checked) {  
-            userAnswer = ele[i].value; 
+        if(radioButtonEle[i].checked) {  
+            userAnswer = radioButtonEle[i].value; 
         } 
     } 
     return userAnswer
@@ -267,26 +271,32 @@ function findAverage() {
 
 function calculateScoreForIndiv(){  //new function for json program- started from copy of above in submit
     //how to calculate from json
-
+    let totalScore=0
+    let questions = document.querySelectorAll('.questions')  
     questions.forEach(function(question) {  // loop though a node list of questions
         wrongAnswerList=[]
-        let correctAnswer = question.querySelector('.correctAnswer')  //find the correct answer for this question
-        let questName = correctAnswer.getAttribute('name') 
+        let correctAnswerEl = question.querySelector('#correct')  //find the correct answer for this question
+        console.log('correctAnswerEl', correctAnswerEl)
+        let correctAnswer = correctAnswerEl.getAttribute('value')
+        console.log('correctAnswer', correctAnswer) // OK
+        let questNumber = correctAnswerEl.getAttribute('name') 
+        console.log('questNumber is ', questNumber)
         //get the user's answer -call the function below - tie it to the correct class
-        userAnswer =getRadioValue(questName) 
-    
-        if(userAnswer ===correctAnswer.value) {  //if the two answers are the same, add one to the total
+        userAnswer =getRadioValue(questNumber)//(questNumber)  PROBLEM HERE
+    console.log('user answer', userAnswer)
+        if(userAnswer ===correctAnswer) {  //if the two answers are the same, add one to the total
             totalScore++
         }else{ //otherwise, add that question# to the array
-            wrongAnswerList.push(questName)
+            wrongAnswerList.push(questNumber)  
         }  //if the wrong answer list has any elements in it, alert the user
         if (wrongAnswerList.length>0){
             alert('You got these questions incorrect: ' +  wrongAnswerList)
             for(let x=0; x<wrongAnswerList.length; x++){ //loop through list and let user know correct answer
-                alert('The correct answer to ' + wrongAnswerList[x] + ' is '  + correctAnswer.value)
+                alert('The correct answer to ' + wrongAnswerList[x] + ' is '  + correctAnswer)
             }
         } 
     })
+    return totalScore
 }
 
 
