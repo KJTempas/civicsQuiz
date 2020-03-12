@@ -163,16 +163,18 @@ submitButton.addEventListener('click', function() {  //this is from original loc
     indivScore.innerHTML = `You scored ${totalScore} out of ${questions.length}`
     //call function to update chart
     
-    addResultsToChart(userName, totalScore)
-    localStorage.setItem(userName, totalScore)
-})
+    console.log('info for chart ', userName, totalScore) //correct
+    addResultsToChart(userName, totalScore) //not showing on chart
+    //localStorage.setItem(userName, totalScore)
+   
+//})
 
-document.querySelector('#submit').addEventListener('click', function() {
+//document.querySelector('#submit').addEventListener('click', function() {
     
     // for example - you would get this from data the user entered 
     //let data = { name: 'Cat', score: 9}
     //http://localhost:3000/scores",
-    let data = {name: 'userName', score: 'totalScore'}
+    let data = {name: userName, score: totalScore}
 
     fetch(scoresUrl, { 
         method: 'POST',   //post adds scores to json server;  code 201 means created(request has been fulfilled and a new resource created)
@@ -223,7 +225,7 @@ averageButton.addEventListener('click', function() {
 
 function getRadioValue(questNumber) {
     let radioButtonEle = document.getElementsByName(questNumber); 
-    console.log('should be 4 radio buttons and there are : ', radioButtonEle.length) 
+    
       let userAnswer='';
     for(let i = 0; i < radioButtonEle.length; i++) { //loop through radio button elements for each question
         //if the element is checked, then that element's value is the user Answer
@@ -236,8 +238,6 @@ function getRadioValue(questNumber) {
 
 function uncheck() { //loop through and set all radio buttons to unchecked
     let allRadioButtonEle = document.getElementsByClassName("button"); 
-   
-    console.log('number in allRadioButtonEle', allRadioButtonEle.length) //get 12
     for(let x=0; x<allRadioButtonEle.length; x++) {
         allRadioButtonEle[x].checked=false
     }
@@ -269,8 +269,8 @@ function calculateScoreForIndiv(){  //new function for json program- started fro
         let questNumber = correctAnswerEl.getAttribute('name') 
         
         //get the user's answer -call the function below - tie it to the correct class
-        userAnswer =getRadioValue(questNumber)//(questNumber)  PROBLEM HERE - always giving same answer
-    console.log('user answer', userAnswer)
+        userAnswer =getRadioValue(questNumber)
+    
         if(userAnswer ===correctAnswer) {  //if the two answers are the same, add one to the total
             totalScore++
         }else{ //otherwise, add that question# to the array
@@ -279,7 +279,8 @@ function calculateScoreForIndiv(){  //new function for json program- started fro
         if (wrongAnswerList.length>0){
             alert('You got these questions incorrect: ' +  wrongAnswerList)
             for(let x=0; x<wrongAnswerList.length; x++){ //loop through list and let user know correct answer
-                alert('The correct answer to ' + wrongAnswerList[x] + ' is '  + correctAnswer)
+               // alert('The correct answer to ' + wrongAnswerList[x] + ' is '  + correctAnswer)
+                alert('The correct answer to question # ' + [x+1] + ' is '  + correctAnswer.value)
             }
         } 
     })
