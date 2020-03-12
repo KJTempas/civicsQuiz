@@ -98,14 +98,14 @@ function buildAnswerElement(answerText, questionId, isCorrectAnswer) {
     //w3schools - create a radio button element
     radioButton.setAttribute("type", "radio");
     radioButton.setAttribute("name", 'quest' + questionId)
-    radioButton.setAttribute("name", "button")
+    //radioButton.setAttribute("name", "button")
     radioButton.setAttribute("value", answerText)   ///answers need to have a value for use in getRadioButton method
                                                         //but how to assign one since this is a generic method; 
      
     //todo if this is a correct answer, set id to correct 
     if(isCorrectAnswer) {
         radioButton.setAttribute("id", "correct")
-        radioButton.setAttribute("name", 'quest' + questionId)
+       // radioButton.setAttribute("name", 'quest' + questionId)
     }
 
     questionLabel.appendChild(radioButton) //link the button and the label
@@ -222,11 +222,9 @@ averageButton.addEventListener('click', function() {
 })
 
 //function getRadioValue(questionName) { //original
-//function getRadioValue(questNumber)
-    function getRadioValue() { 
-        //problem HERE
-    let radioButtonEle = document.getElementsByName("button"); 
-    console.log('should be 4 radio buttons and there are : ', radioButtonEle.length) //9?
+function getRadioValue(questNumber) {
+    let radioButtonEle = document.getElementsByName(questNumber); 
+    console.log('should be 4 radio buttons and there are : ', radioButtonEle.length) 
       let userAnswer='';
     for(let i = 0; i < radioButtonEle.length; i++) { //loop through radio button elements for each question
         //if the element is checked, then that element's value is the user Answer
@@ -280,9 +278,9 @@ function calculateScoreForIndiv(){  //new function for json program- started fro
         let correctAnswer = correctAnswerEl.getAttribute('value')
         console.log('correctAnswer', correctAnswer) // OK
         let questNumber = correctAnswerEl.getAttribute('name') 
-        console.log('questNumber is ', questNumber)
+        console.log('questNumber is ', questNumber)//OK
         //get the user's answer -call the function below - tie it to the correct class
-        userAnswer =getRadioValue(questNumber)//(questNumber)  PROBLEM HERE
+        userAnswer =getRadioValue(questNumber)//(questNumber)  PROBLEM HERE - always giving same answer
     console.log('user answer', userAnswer)
         if(userAnswer ===correctAnswer) {  //if the two answers are the same, add one to the total
             totalScore++
