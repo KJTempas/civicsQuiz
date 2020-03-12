@@ -98,7 +98,7 @@ function buildAnswerElement(answerText, questionId, isCorrectAnswer) {
     //w3schools - create a radio button element
     radioButton.setAttribute("type", "radio");
     radioButton.setAttribute("name", 'quest' + questionId)
-    //radioButton.setAttribute("name", "button")
+    radioButton.setAttribute("class", "button")
     radioButton.setAttribute("value", answerText)   ///answers need to have a value for use in getRadioButton method
                                                         //but how to assign one since this is a generic method; 
      
@@ -221,7 +221,6 @@ averageButton.addEventListener('click', function() {
 
 })
 
-//function getRadioValue(questionName) { //original
 function getRadioValue(questNumber) {
     let radioButtonEle = document.getElementsByName(questNumber); 
     console.log('should be 4 radio buttons and there are : ', radioButtonEle.length) 
@@ -234,22 +233,14 @@ function getRadioValue(questNumber) {
     } 
     return userAnswer
 } 
-//original here
-function uncheck() {//loop through and set all radio buttons to unchecked
-   //w/ help from  https://forums.asp.net/t/1526762.aspx?Uncheck+Radio+button+list
-   let correctEl = document.getElementsByClassName("correctAnswer")  //this makes a node list
-    for (let x=0; x<correctEl.length; x++){ //loop through the node list
-        if (correctEl[x].checked = true ){  //if element is checked, uncheck it
-            correctEl[x].checked = false;
+
+function uncheck() { //loop through and set all radio buttons to unchecked
+    let allRadioButtonEle = document.getElementsByClassName("button"); 
+   
+    console.log('number in allRadioButtonEle', allRadioButtonEle.length) //get 12
+    for(let x=0; x<allRadioButtonEle.length; x++) {
+        allRadioButtonEle[x].checked=false
     }
-}
-   let wrongEl = document.getElementsByClassName("wrongAnswer")
-   //loop through and set unchecked to true
-   for(let t=0; t<wrongEl.length; t++) {
-       if(wrongEl[t].checked=true ){
-            wrongEl[t].checked = false;
-   }
- }
 }
 
 
@@ -274,11 +265,9 @@ function calculateScoreForIndiv(){  //new function for json program- started fro
     questions.forEach(function(question) {  // loop though a node list of questions
         wrongAnswerList=[]
         let correctAnswerEl = question.querySelector('#correct')  //find the correct answer for this question
-        console.log('correctAnswerEl', correctAnswerEl)
         let correctAnswer = correctAnswerEl.getAttribute('value')
-        console.log('correctAnswer', correctAnswer) // OK
         let questNumber = correctAnswerEl.getAttribute('name') 
-        console.log('questNumber is ', questNumber)//OK
+        
         //get the user's answer -call the function below - tie it to the correct class
         userAnswer =getRadioValue(questNumber)//(questNumber)  PROBLEM HERE - always giving same answer
     console.log('user answer', userAnswer)
