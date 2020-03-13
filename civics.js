@@ -189,7 +189,7 @@ submitButton.addEventListener('click', function() {  //this is from original loc
 })
 //https://www.w3schools.com/js/js_json_intro.asp
 //to convert JSON into an object (like my questions)
-//var myObj = JSON.parse(myJSON);   //where myJSON = k/v pairs in an object - 
+
 
 // Storing data:
 //myObj = {name: "John", age: 31, city: "New York"};
