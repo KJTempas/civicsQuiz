@@ -3,7 +3,6 @@
 let indivScore=document.querySelector('#yourScore')
 let submitButton = document.querySelector('#submit')
 let studentNameInput = document.querySelector('#name')
-
 let nextUserButton = document.querySelector('#nextUser')
 let averageButton = document.querySelector('#average')
 let averageScore = document.querySelector('#averageScore')
@@ -37,12 +36,9 @@ fetch(questionsUrl) //go the the questionsUrl and fetch the questions //getting 
                 singleQuestElement.appendChild(header) //add the header to the div element
 
                 let questionText= document.createElement('p')
-                questionText.innerHTML = question.question
+                questionText.innerHTML = question.question //set text of the p element to a question from the server
                 singleQuestElement.appendChild(questionText) //add the question to the div
-                
-
                 questionContainer.appendChild(singleQuestElement)
-            
 
             let allAnswerElements = [] //array to hold all answers
                     //call buildAnswerElement function once for each answer, and add these to the array
@@ -130,7 +126,9 @@ submitButton.addEventListener('click', function() {  //this is from original loc
     indivScore.innerHTML = `You scored ${totalScore} out of ${questions.length}`
     
     console.log('info for chart ', userName, totalScore) //correct
-    addResultsToChart(userName, totalScore) //not showing on chart
+    //changed from adding user to chart indiv to pulling data from server
+    //addResultsToChart(userName, totalScore) //not showing on chart
+    
     //localStorage.setItem(userName, totalScore)
 
     //http://localhost:3000/scores",
@@ -144,8 +142,9 @@ submitButton.addEventListener('click', function() {  //this is from original loc
         body: JSON.stringify(data) //converting object into JSON using stringify
         })
         .then(resp => { 
-            console.log(resp)
+            console.log('response from posting score to scores', resp)
         })
+        //getScoresToChart()  //calling method to retrieve all scores and send to chart
 })
 //https://www.w3schools.com/js/js_json_intro.asp
 //to convert JSON into an object (like my questions)
@@ -159,7 +158,7 @@ nextUserButton.addEventListener('click', function() {
     //call function to uncheck all radio buttons
     uncheck()  
 })
-
+/*
 averageButton.addEventListener('click', function() {
     //call function below
     average =findAverage()
@@ -170,6 +169,14 @@ averageButton.addEventListener('click', function() {
     let totalScore = average
     addResultsToChart('average', totalScore) //need this to show only 2 digits past decimal
 
+})*/
+
+//new version
+averageButton.addEventListener('click', function() {
+    scores = getScoresToChart()
+    
+    //console.log('in average button these are scores returned from getScoresToChart', scores) //undefined
+    //chartResultsAndAverage(scores)
 })
 
 function getRadioValue(questNumber) {
@@ -196,15 +203,16 @@ function getScoresToChart() {
    // pseudocode - fetch (get scores).then(decode json).then(data => {
             // draw chart here - re-draw the entire chart
     fetch(scoresUrl) 
-        .then (resp =>res.json() )    //converts response to a JSON object
+        .then (resp =>resp.json() )    //converts response to a JSON object
         .then(scores => {
-            console.log(scores)
+            console.log('These are the scores from the server', scores) //this is working  - see name/score/id
         //call method to draw chart
-        addResultsToChart(scores)
+        //addResultsToChart(scores)
+            chartResultsAndAverage(scores)
     })
+    //return scores
    }
  
-   
 
 //original findAverage function
 /*function findAverage() { //this method used with local storage; need to redo for json server
@@ -221,7 +229,7 @@ function getScoresToChart() {
     return average;
 }*/
 //revised findAverage function using json server
-function findAverage() {
+/*function findAverage() {
     let total=0
     fetch(scoresUrl),{
     method: 'GET',   //post adds scores to json server;  code 201 means created(request has been fulfilled and a new resource created)
@@ -239,7 +247,7 @@ function findAverage() {
         let average = total/numberOfScores
         //send average to be graphed
     })
-}
+}*/
 
 
 /*function findAverageTwo(){

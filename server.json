@@ -46,6 +46,41 @@
       "name": "cat1",
       "score": 3,
       "id": 51
+    },
+    {
+      "name": "cat2",
+      "score": 1,
+      "id": 52
+    },
+    {
+      "name": "cat3",
+      "score": 2,
+      "id": 53
+    },
+    {
+      "name": "cat4",
+      "score": 2,
+      "id": 54
+    },
+    {
+      "name": "cat4",
+      "score": 3,
+      "id": 55
+    },
+    {
+      "name": "cat5",
+      "score": 2,
+      "id": 56
+    },
+    {
+      "name": "cat6",
+      "score": 3,
+      "id": 57
+    },
+    {
+      "name": "cat7",
+      "score": 2,
+      "id": 58
     }
   ]
 }
