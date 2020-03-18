@@ -110,12 +110,10 @@ submitButton.addEventListener('click', function() {  //this is from original loc
         return
     }
     
-
-
     checkForDuplicateName(userName)  //call function below to make sure name not already in server.json
 
     let questions = document.querySelectorAll('.questions')  //select all w/ class 'questions' - all question div elements
-    totalScore=calculateScoreForIndiv() //call this function below
+    totalScore=calculateScoreForIndiv() //call this function below - returns totalScore
    
     //show person's score after looping is complete
     indivScore.innerHTML = `You scored ${totalScore} out of ${questions.length}`
@@ -136,7 +134,7 @@ submitButton.addEventListener('click', function() {  //this is from original loc
         .then(resp => { 
             console.log('response from posting score to scores', resp)
         })
-        //getScoresToChart()  //calling method to retrieve all scores and send to chart
+        
 })
 
 
@@ -192,9 +190,10 @@ function checkForDuplicateName(userName) {
             for (let x=0; x<scores.length; x++) {//loop through all of the names in the json server
                if (userName === scores[x].name) {
                    alert('This name already used. Please add a last name')
+                   return
                }
             }
-            }  ) 
+            }) 
 }
 
 function calculateScoreForIndiv(){  //new function for json program- started from copy of above in submit

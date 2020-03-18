@@ -53,64 +53,9 @@
       "id": 54
     },
     {
-      "name": "cat4",
+      "name": "cat5",
       "score": 3,
       "id": 55
-    },
-    {
-      "name": "cat5",
-      "score": 2,
-      "id": 56
-    },
-    {
-      "name": "cat8",
-      "score": 3,
-      "id": 57
-    },
-    {
-      "name": "cat3",
-      "score": 3,
-      "id": 58
-    },
-    {
-      "name": "hi",
-      "score": 2,
-      "id": 59
-    },
-    {
-      "name": "cat9",
-      "score": 2,
-      "id": 60
-    },
-    {
-      "name": "cat3",
-      "score": 0,
-      "id": 61
-    },
-    {
-      "name": "cat3",
-      "score": 2,
-      "id": 62
-    },
-    {
-      "name": "cat4",
-      "score": 3,
-      "id": 63
-    },
-    {
-      "name": "cat2",
-      "score": 2,
-      "id": 64
-    },
-    {
-      "name": "cat1",
-      "score": 3,
-      "id": 65
-    },
-    {
-      "name": "cat10",
-      "score": 3,
-      "id": 66
     }
   ]
 }
