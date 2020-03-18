@@ -33,16 +33,6 @@
   ],
   "scores": [
     {
-      "name": "d1",
-      "score": 2,
-      "id": 49
-    },
-    {
-      "name": "d2",
-      "score": 2,
-      "id": 50
-    },
-    {
       "name": "cat1",
       "score": 3,
       "id": 51
@@ -73,14 +63,9 @@
       "id": 56
     },
     {
-      "name": "cat6",
+      "name": "cat8",
       "score": 3,
       "id": 57
-    },
-    {
-      "name": "cat7",
-      "score": 2,
-      "id": 58
     }
   ]
 }

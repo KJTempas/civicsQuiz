@@ -5,7 +5,7 @@ let submitButton = document.querySelector('#submit')
 let studentNameInput = document.querySelector('#name')
 let nextUserButton = document.querySelector('#nextUser')
 let averageButton = document.querySelector('#average')
-let averageScore = document.querySelector('#averageScore')
+let averageScoreLabel = document.querySelector('#averageScore')
 let questionsUrl = "http://localhost:3000/questions"
 let scoresUrl = "http://localhost:3000/scores"
 //# for id; . for class
@@ -173,9 +173,8 @@ averageButton.addEventListener('click', function() {
 
 //new version
 averageButton.addEventListener('click', function() {
-    scores = getScoresToChart()
-    
-    //console.log('in average button these are scores returned from getScoresToChart', scores) //undefined
+    //scores = getScoresToChart() //send to function to retrieve scores from server.json
+    getScoresToChart()
     //chartResultsAndAverage(scores)
 })
 
@@ -205,12 +204,9 @@ function getScoresToChart() {
     fetch(scoresUrl) 
         .then (resp =>resp.json() )    //converts response to a JSON object
         .then(scores => {
-            console.log('These are the scores from the server', scores) //this is working  - see name/score/id
         //call method to draw chart
-        //addResultsToChart(scores)
             chartResultsAndAverage(scores)
     })
-    //return scores
    }
  
 

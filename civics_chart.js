@@ -37,10 +37,8 @@ let chartColors = ['#003f5c', '#58508d', '#bd5090', '#ff6361', '#ffa600']
 //function addResultsToChart(scores) { //scores are from the json server
     function chartResultsAndAverage(scores) {
         let grandTotal=0 //for average
-        console.log('scores that got to the chart fx', scores) //working
         let numberOfStudents = scores.length 
     
-        console.log('number of Students = ', numberOfStudents) 
     for (let i=0; i<scores.length; i++) {
         let userName = scores[i].name
         let totalScore = scores[i].score
@@ -57,8 +55,10 @@ let chartColors = ['#003f5c', '#58508d', '#bd5090', '#ff6361', '#ffa600']
 
 
     }
-    let averageScore = 'average score'
+    let averageScore = 'average score' //label for average bar in graph
     let average = grandTotal/numberOfStudents
+    let avg=average.toFixed(2)
+    averageScoreLabel.innerHTML = `Average score is  ${avg} .  ${scores.length} students have taken the quiz.`
     civicsResultsChart.data.labels.push(averageScore)
     civicsResultsChart.data.datasets[0].data.push(average)
 
