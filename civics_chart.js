@@ -4,8 +4,27 @@ let canvas = document.getElementById('civics_chart')
 //console.log(canvas)
 let ctx = canvas.getContext('2d');
 
+//from stackOverflow - getting label on bar chart
+var chartOptions = {
+    animation: false,
+    responsive : true,
+    tooltipTemplate: "<%= value %>",
+    tooltipFillColor: "rgba(0,0,0,0)",
+    tooltipFontColor: "#444",
+    tooltipEvents: [],
+    tooltipCaretSize: 0,
+    onAnimationComplete: function()
+    {
+        this.showTooltip(this.datasets[0].bars, true);
+    }
+};
+
+//window.myBar = new Chart(ctx1).Bar(chartData, chartOptions);
+
+
 //create chart object
 let civicsResultsChart = new Chart(ctx, {
+    
     type: 'bar',
     data: {
         datasets: [
@@ -17,9 +36,10 @@ let civicsResultsChart = new Chart(ctx, {
     ],
         labels: []
     },
-    options: {
+   options: { //original
         scales: {
-            yAxes: [{
+            yAxes: [{  
+                //yLabel: number | string,
                 ticks: {
                     max: 10,
                     beginAtZero: true,
@@ -27,8 +47,30 @@ let civicsResultsChart = new Chart(ctx, {
                 }
             }]
         }
-    }
-});
+    },
+
+   /*options: { 
+        tooltips: {
+            enabled: true,
+            callbacks: {
+                label: function(tooltipItem, data) {
+                    var label = data.datasets[tooltipItem.datasetIndex].label;
+            }
+        },*/
+
+        scales: {
+            yAxes: [{  
+                //yLabel: number | string,
+                ticks: {
+                    max: 10,
+                    beginAtZero: true,
+                    stepSize: 1.0
+                }
+            }]
+        }
+   // }
+    //}
+    });
 
 let chartColors = ['#003f5c', '#58508d', '#bd5090', '#ff6361', '#ffa600']
 
