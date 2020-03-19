@@ -110,31 +110,35 @@ submitButton.addEventListener('click', function() {  //this is from original loc
         return
     }
     
-    checkForDuplicateName(userName)  //call function below to make sure name not already in server.json
+    checkForDuplicateName(userName, function(isDupe) {
 
+        if (isDupe) {
+            alert('You already took the quiz.')
+        }
+        else {
     let questions = document.querySelectorAll('.questions')  //select all w/ class 'questions' - all question div elements
-    totalScore=calculateScoreForIndiv() //call this function below - returns totalScore
-   
-    //show person's score after looping is complete
-    indivScore.innerHTML = `You scored ${totalScore} out of ${questions.length}`
+        totalScore=calculateScoreForIndiv() //call this function below - returns totalScore
     
-    
-    //localStorage.setItem(userName, totalScore)
-
-    //http://localhost:3000/scores",
-    let data = {name: userName, score: totalScore}
-
-    fetch(scoresUrl, { 
-        method: 'POST',   //post adds scores to json server;  code 201 means created(request has been fulfilled and a new resource created)
-        headers: {
-            'Content-Type': 'application/json'
-        }, 
-        body: JSON.stringify(data) //converting object into JSON using stringify
-        })
-        .then(resp => { 
-            console.log('response from posting score to scores', resp)
-        })
+        //show person's score after looping is complete
+        indivScore.innerHTML = `You scored ${totalScore} out of ${questions.length}`
         
+        
+        //localStorage.setItem(userName, totalScore)
+
+        //http://localhost:3000/scores",
+        let data = {name: userName, score: totalScore}
+
+        fetch(scoresUrl, { 
+            method: 'POST',   //post adds scores to json server;  code 201 means created(request has been fulfilled and a new resource created)
+            headers: {
+                'Content-Type': 'application/json'
+            }, 
+            body: JSON.stringify(data) //converting object into JSON using stringify
+            })
+            .then(resp => { 
+                console.log('response from posting score to scores', resp)
+            })
+        }
 })
 
 
@@ -145,6 +149,9 @@ nextUserButton.addEventListener('click', function() {
     indivScore.innerHTML= ""
     //call function to uncheck all radio buttons
     uncheck()  
+    })  //call function below to make sure name not already in server.json
+
+   
 })
 
 averageButton.addEventListener('click', function() {
@@ -183,16 +190,18 @@ function getScoresToChart() {
     })
    }
  
-function checkForDuplicateName(userName) {
+function checkForDuplicateName(userName, callback) {
     fetch(scoresUrl)  //get scores from server.json
         .then (resp =>resp.json() )    //converts response to a JSON object
         .then(scores => {       
             for (let x=0; x<scores.length; x++) {//loop through all of the names in the json server
                if (userName === scores[x].name) {
                    alert('This name already used. Please add a last name')
-                   return
+                   callback(true)
                }
             }
+
+            callback(false)
             }) 
 }
 
