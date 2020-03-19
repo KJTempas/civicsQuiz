@@ -8,14 +8,13 @@ let averageButton = document.querySelector('#average')
 let averageScoreLabel = document.querySelector('#averageScore')
 let questionsUrl = "http://localhost:3000/questions"
 let scoresUrl = "http://localhost:3000/scores"
-//# for id; . for class
 
 //localStorage.removeItem("Zion") //if you need to remove something or rt click and clear local storage
 
 //note: to stop server-    Control+C 
 //to start server - in terminal type this:  node_modules/.bin/json-server --watch server.json        OR up arrow in terminal
-//to view server- http://localhost:3000/questions or http://localhost:3000/answers
-fetch(questionsUrl) //go the the questionsUrl and fetch the questions //getting a 404 when server is on
+//to view server- http://localhost:3000/questions or http://localhost:3000/scores
+fetch(questionsUrl) //go the the questionsUrl and fetch the questions 
     .then( resp => resp.json()) //convert object to JSON
     .then( questions => {
                                 //code 304 in terminal means not modified - question file is not modified
@@ -80,8 +79,8 @@ function shuffle(arrayOfElements) {
 function buildAnswerElement(answerText, questionId, isCorrectAnswer) {
     //create label, create radio button, return element with both in
     let answerEl = document.createElement('div')
-    let questionLabel=document.createElement('label')
-    questionLabel.innerHTML = answerText
+    let questionLabel=document.createElement('label') //original
+    questionLabel.innerHTML = answerText //original
 
     let radioButton = document.createElement("INPUT");
     radioButton.setAttribute("type", "radio");
@@ -93,8 +92,16 @@ function buildAnswerElement(answerText, questionId, isCorrectAnswer) {
     if(isCorrectAnswer) {
         radioButton.setAttribute("id", "correct")
     }
-    questionLabel.appendChild(radioButton) //link the button and the label
-    answerEl.appendChild(questionLabel)
+
+    //let questionLabel=document.createElement('label') //test
+    //questionLabel.innerHTML = answerText  //test
+
+    questionLabel.appendChild(radioButton) //link the button and the label //original
+    //radioButton.appendChild(questionLabel) //link the button and the label - this causes the radio button to disappear
+    
+    answerEl.appendChild(questionLabel)//original
+    //answerEl.appendChild(radioButton) //test
+
 
     return answerEl 
 }
@@ -102,24 +109,23 @@ function buildAnswerElement(answerText, questionId, isCorrectAnswer) {
 
 submitButton.addEventListener('click', function() {  //this is from original local storage
     //when the user clicks the submit button
-    //get the student name
-    let userName = studentNameInput.value
+    let userName = studentNameInput.value  //get the student name
     // add validation that name >1character
     if(userName.length<1) {
         alert('Enter a user name')
         return
     }
     
-    checkForDuplicateName(userName)  //call function below to make sure name not already in server.json
-
+    checkForDuplicateName(userName, function(isDupe) {  //call function below to make sure name not already in server.json
+        if (isDupe) {
+            alert('You already took the quiz.')
+        }
+        else{
     let questions = document.querySelectorAll('.questions')  //select all w/ class 'questions' - all question div elements
     totalScore=calculateScoreForIndiv() //call this function below - returns totalScore
    
     //show person's score after looping is complete
     indivScore.innerHTML = `You scored ${totalScore} out of ${questions.length}`
-    
-    
-    //localStorage.setItem(userName, totalScore)
 
     //http://localhost:3000/scores",
     let data = {name: userName, score: totalScore}
@@ -134,7 +140,8 @@ submitButton.addEventListener('click', function() {  //this is from original loc
         .then(resp => { 
             console.log('response from posting score to scores', resp)
         })
-        
+    } 
+}) 
 })
 
 
@@ -183,16 +190,17 @@ function getScoresToChart() {
     })
    }
  
-function checkForDuplicateName(userName) {
+function checkForDuplicateName(userName, callback) {
     fetch(scoresUrl)  //get scores from server.json
         .then (resp =>resp.json() )    //converts response to a JSON object
         .then(scores => {       
             for (let x=0; x<scores.length; x++) {//loop through all of the names in the json server
                if (userName === scores[x].name) {
                    alert('This name already used. Please add a last name')
-                   return
+                   callback(true)
                }
             }
+            callback(false)
             }) 
 }
 
