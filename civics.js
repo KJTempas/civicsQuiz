@@ -117,7 +117,7 @@ submitButton.addEventListener('click', function() {  //this is from original loc
     }
     
 
-    checkForDuplicateName(userName, function(isDupe) {  //call function below to make sure name not already in server.json
+    checkForDuplicateName(userName, function(isDupe) {  //call function to make sure name not already in server.json
         if (isDupe) {
             alert('You already took the quiz.')
         }
@@ -132,7 +132,7 @@ submitButton.addEventListener('click', function() {  //this is from original loc
     let data = {name: userName, score: totalScore}
 
     fetch(scoresUrl, { 
-        method: 'POST',   //post adds scores to json server;  code 201 means created(request has been fulfilled and a new resource created)
+        method: 'POST',   //post adds scores to json server
         headers: {
             'Content-Type': 'application/json'
         }, 
@@ -152,7 +152,7 @@ nextUserButton.addEventListener('click', function() {
     indivScore.innerHTML= ""
     //call function to uncheck all radio buttons
     uncheck()  
-    })  //call function below to make sure name not already in server.json
+    })  
 
    
 })
@@ -183,8 +183,7 @@ function uncheck() { //loop through and set all radio buttons to unchecked
 }
 
 function getScoresToChart() {
-   // pseudocode - fetch (get scores).then(decode json).then(data => {
-            // draw chart here - re-draw the entire chart
+
     fetch(scoresUrl) 
         .then (resp =>resp.json() )    //converts response to a JSON object
         .then(scores => {
@@ -207,7 +206,7 @@ function checkForDuplicateName(userName, callback) {
             }) 
 }
 
-function calculateScoreForIndiv(){  //new function for json program- started from copy of above in submit
+function calculateScoreForIndiv(){  
     //how to calculate from json
     let totalScore=0
     let questions = document.querySelectorAll('.questions')  
@@ -226,10 +225,9 @@ function calculateScoreForIndiv(){  //new function for json program- started fro
             wrongAnswerList.push(questNumber)  
         }  //if the wrong answer list has any elements in it, alert the user
         if (wrongAnswerList.length>0){
-            alert('You got these questions incorrect: ' +  wrongAnswerList)
+            alert('You got this question incorrect: ' +  wrongAnswerList)
             for(let x=0; x<wrongAnswerList.length; x++){ //loop through list and let user know correct answer
-               // alert('The correct answer to ' + wrongAnswerList[x] + ' is '  + correctAnswer)
-                alert('The correct answer to question # ' + [x+1] + ' is '  + correctAnswer)
+                alert('The correct answer is '  + correctAnswer)
             }
         } 
     })
