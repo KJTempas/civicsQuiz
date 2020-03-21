@@ -116,6 +116,7 @@ submitButton.addEventListener('click', function() {  //this is from original loc
         return
     }
     
+
     checkForDuplicateName(userName, function(isDupe) {  //call function below to make sure name not already in server.json
         if (isDupe) {
             alert('You already took the quiz.')
@@ -142,7 +143,6 @@ submitButton.addEventListener('click', function() {  //this is from original loc
         })
     } 
 }) 
-})
 
 
 nextUserButton.addEventListener('click', function() {
@@ -152,6 +152,9 @@ nextUserButton.addEventListener('click', function() {
     indivScore.innerHTML= ""
     //call function to uncheck all radio buttons
     uncheck()  
+    })  //call function below to make sure name not already in server.json
+
+   
 })
 
 averageButton.addEventListener('click', function() {
@@ -200,6 +203,10 @@ function checkForDuplicateName(userName, callback) {
                    callback(true)
                }
             }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7dadfcac4ab9743a8829b24731e8d1a96021630b
             callback(false)
             }) 
 }
