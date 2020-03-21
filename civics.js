@@ -203,10 +203,6 @@ function checkForDuplicateName(userName, callback) {
                    callback(true)
                }
             }
-<<<<<<< HEAD
-=======
-
->>>>>>> 7dadfcac4ab9743a8829b24731e8d1a96021630b
             callback(false)
             }) 
 }
