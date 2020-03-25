@@ -80,7 +80,7 @@ function buildAnswerElement(answerText, questionId, isCorrectAnswer) {
     //create label, create radio button, return element with both in
     let answerEl = document.createElement('div')
     let questionLabel=document.createElement('label') //original
-    questionLabel.innerHTML = answerText //original
+    questionLabel.innerHTML = answerText 
 
     let radioButton = document.createElement("INPUT");
     radioButton.setAttribute("type", "radio");
@@ -93,9 +93,7 @@ function buildAnswerElement(answerText, questionId, isCorrectAnswer) {
         radioButton.setAttribute("id", "correct")
     }
 
-
-    questionLabel.appendChild(radioButton) //link the button and the label 
-
+    answerEl.appendChild(radioButton)
     answerEl.appendChild(questionLabel)
 
     return answerEl 
