@@ -115,6 +115,7 @@ submitButton.addEventListener('click', function() {
             alert('You already took the quiz.')
         }
         else{
+            alert('Hello new user, scoring your quiz!')
     let questions = document.querySelectorAll('.questions')  //select all w/ class 'questions' - all question div elements
     totalScore=calculateScoreForIndiv() //call this function below - returns totalScore
    
