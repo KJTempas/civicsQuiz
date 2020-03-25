@@ -29,6 +29,76 @@
         "7",
         "11"
       ]
+    },
+    {
+      "id": 4,
+      "question": "There are how many amendments to the U.S. Constitution?",
+      "correctAnswer": "27",
+      "wrongAnswers": [
+        "20",
+        "24",
+        "35"
+      ]
+    },
+    {
+      "id": 5,
+      "question": "Which of these states was NOT one of the original colonies?",
+      "correctAnswer": "Vermont",
+      "wrongAnswers": [
+        "Pennsylvania",
+        "Rhode Island",
+        "South Carolina"
+      ]
+    },
+    {
+      "id": 6,
+      "question": "What are the first 10 ammendments to the U.S. Constitution called? ",
+      "correctAnswer": "The Bill Of Rights",
+      "wrongAnswers": [
+        "The Original Ten",
+        "The Preamble",
+        "The Declaration Of Rights"
+      ]
+    },
+    {
+      "id": 7,
+      "question": "Which of these economic systems is the United States?",
+      "correctAnswer": "Capitalism",
+      "wrongAnswers": [
+        "Communism",
+        "Socialism",
+        "Democracy"
+      ]
+    },
+    {
+      "id": 8,
+      "question": "Who is the current (in Feb 2020) Vice President of the U.S.? ",
+      "correctAnswer": "Mike Pence",
+      "wrongAnswers": [
+        "Dick Cheney",
+        "Mitch McConnell",
+        "Mike Pompeo"
+      ]
+    },
+    {
+      "id": 9,
+      "question": "Who is the current (in Feb 2020) Mayor of Minneapolis",
+      "correctAnswer": "Jacob Frey",
+      "wrongAnswers": [
+        "Betsy Hodges",
+        "Melvin Carter",
+        "Tim Walz"
+      ]
+    }, 
+    {
+      "id": 10,
+      "question": "The United States has unconditional birthright citizenship.  What percentage of countries around the world also follow this model?",
+      "correctAnswer": "17",
+      "wrongAnswers": [
+        "100",
+        "36",
+        "52"
+      ]
     }
   ],
   "scores": [
@@ -36,66 +106,7 @@
       "name": "cat1",
       "score": 3,
       "id": 51
-    },
-    {
-      "name": "cat2",
-      "score": 1,
-      "id": 52
-    },
-    {
-      "name": "cat3",
-      "score": 2,
-      "id": 53
-    },
-    {
-      "name": "cat4",
-      "score": 2,
-      "id": 54
-    },
-    {
-      "name": "cat5",
-      "score": 3,
-      "id": 55
-    },
-    {
-      "name": "bt",
-      "score": 2,
-      "id": 56
-    },
-    {
-      "name": "kj",
-      "score": 3,
-      "id": 57
-    },
-    {
-      "name": "st",
-      "score": 3,
-      "id": 58
-    },
-    {
-      "name": "kj",
-      "score": 1,
-      "id": 59
-    },
-    {
-      "name": "nt",
-      "score": 1,
-      "id": 60
-    },
-    {
-      "name": "mj",
-      "score": 2,
-      "id": 61
-    },
-    {
-      "name": "aj",
-      "score": 1,
-      "id": 62
-    },
-    {
-      "name": "laj",
-      "score": 0,
-      "id": 63
     }
+    
   ]
 }
