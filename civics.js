@@ -185,17 +185,20 @@ function getScoresToChart() {
    }
  
 function checkForDuplicateName(userName, callback) {
-    fetch(scoresUrl)  //get scores from server.json
+
+    let existingUserScoreUrl = `http://127.0.0.1:3000/scores?name=${userName}`
+ //search 3000/scores where userName= userName provided
+    fetch(existingUserScoreUrl) //get scores from server.json
         .then (resp =>resp.json() )    //converts response to a JSON object
-        .then(scores => {       
-            for (let x=0; x<scores.length; x++) {//loop through all of the names in the json server
-               if (userName === scores[x].name) {
-                   alert('This name already used. Please add a last name')
-                   callback(true)
-               }
+        .then(scores => {   
+            if(scores.length == 0) {
+                // no duplicate is found
+                callback(false)
+            } else{
+                //don't alert here. the callback will handle whatever logic is needed
+                callback(true)
             }
-            callback(false)
-            }) 
+         }) 
 }
 
 function calculateScoreForIndiv(){  
