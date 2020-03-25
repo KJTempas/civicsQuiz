@@ -1,25 +1,11 @@
 //JS for chart.js
 
 let canvas = document.getElementById('civics_chart')
-//console.log(canvas)
+
 let ctx = canvas.getContext('2d');
 
-//from stackOverflow - getting label on bar chart
-var chartOptions = {
-    animation: false,
-    responsive : true,
-    tooltipTemplate: "<%= value %>",
-    tooltipFillColor: "rgba(0,0,0,0)",
-    tooltipFontColor: "#444",
-    tooltipEvents: [],
-    tooltipCaretSize: 0,
-    onAnimationComplete: function()
-    {
-        this.showTooltip(this.datasets[0].bars, true);
-    }
-};
 
-//window.myBar = new Chart(ctx1).Bar(chartData, chartOptions);
+
 
 
 //create chart object
@@ -36,10 +22,9 @@ let civicsResultsChart = new Chart(ctx, {
     ],
         labels: []
     },
-   options: { //original
+   options: { 
         scales: {
             yAxes: [{  
-                //yLabel: number | string,
                 ticks: {
                     max: 10,
                     beginAtZero: true,
@@ -49,18 +34,8 @@ let civicsResultsChart = new Chart(ctx, {
         }
     },
 
-   /*options: { 
-        tooltips: {
-            enabled: true,
-            callbacks: {
-                label: function(tooltipItem, data) {
-                    var label = data.datasets[tooltipItem.datasetIndex].label;
-            }
-        },*/
-
         scales: {
             yAxes: [{  
-                //yLabel: number | string,
                 ticks: {
                     max: 10,
                     beginAtZero: true,
@@ -68,15 +43,11 @@ let civicsResultsChart = new Chart(ctx, {
                 }
             }]
         }
-   // }
-    //}
     });
 
 let chartColors = ['#003f5c', '#58508d', '#bd5090', '#ff6361', '#ffa600']
 
-//call this function at end of submit button function
-//function addResultsToChart(userName, totalScore) { //original
-//function addResultsToChart(scores) { //scores are from the json server
+
     function chartResultsAndAverage(scores) {
         let grandTotal=0 //for average
         let numberOfStudents = scores.length 
@@ -104,14 +75,7 @@ let chartColors = ['#003f5c', '#58508d', '#bd5090', '#ff6361', '#ffa600']
     civicsResultsChart.data.labels.push(averageScore)
     civicsResultsChart.data.datasets[0].data.push(average)
 
-    //add data to the label array, and data array
-    //civicsResultsChart.data.labels.push(userName)//original
-    //civicsResultsChart.data.datasets[0].data.push(totalScore) //original
-
-    //add colors from chartColors array
-    //let colorCount = civicsResultsChart.data.datasets[0].backgroundColor.length
-    //civicsResultsChart.data.datasets[0].backgroundColor.push(chartColors[colorCount % chartColors.length])
-
+    
     civicsResultsChart.update()
 
 }

@@ -17,7 +17,7 @@ let scoresUrl = "http://localhost:3000/scores"
 fetch(questionsUrl) //go the the questionsUrl and fetch the questions 
     .then( resp => resp.json()) //convert object to JSON
     .then( questions => {
-                                //code 304 in terminal means not modified - question file is not modified
+                                
             let questionCounter = 1;
             
             let questionContainer = document.querySelector('#question-container')
@@ -75,7 +75,7 @@ function shuffle(arrayOfElements) {
     return arrayOfElements;
 }
 
-/** generic method to make one answer radio button  */
+//method to make one answer radio button  */
 function buildAnswerElement(answerText, questionId, isCorrectAnswer) {
     //create label, create radio button, return element with both in
     let answerEl = document.createElement('div')
@@ -93,21 +93,16 @@ function buildAnswerElement(answerText, questionId, isCorrectAnswer) {
         radioButton.setAttribute("id", "correct")
     }
 
-    //let questionLabel=document.createElement('label') //test
-    //questionLabel.innerHTML = answerText  //test
 
-    questionLabel.appendChild(radioButton) //link the button and the label //original
-    //radioButton.appendChild(questionLabel) //link the button and the label - this causes the radio button to disappear
-    
-    answerEl.appendChild(questionLabel)//original
-    //answerEl.appendChild(radioButton) //test
+    questionLabel.appendChild(radioButton) //link the button and the label 
 
+    answerEl.appendChild(questionLabel)
 
     return answerEl 
 }
 
 
-submitButton.addEventListener('click', function() {  //this is from original local storage
+submitButton.addEventListener('click', function() {  
     //when the user clicks the submit button
     let userName = studentNameInput.value  //get the student name
     // add validation that name >1character
@@ -128,7 +123,6 @@ submitButton.addEventListener('click', function() {  //this is from original loc
     //show person's score after looping is complete
     indivScore.innerHTML = `You scored ${totalScore} out of ${questions.length}`
 
-    //http://localhost:3000/scores",
     let data = {name: userName, score: totalScore}
 
     fetch(scoresUrl, { 

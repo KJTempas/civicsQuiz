@@ -89,7 +89,7 @@
         "Melvin Carter",
         "Tim Walz"
       ]
-    }, 
+    },
     {
       "id": 10,
       "question": "The United States has unconditional birthright citizenship.  What percentage of countries around the world also follow this model?",
@@ -103,10 +103,14 @@
   ],
   "scores": [
     {
-      "name": "cat1",
-      "score": 3,
-      "id": 51
+      "name": "Zion T",
+      "score": 9,
+      "id": 52
+    },
+    {
+      "name": "Acadia T",
+      "score": 7,
+      "id": 53
     }
-    
   ]
 }

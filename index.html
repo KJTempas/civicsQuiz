@@ -16,7 +16,7 @@
 <script async defer src="civics_chart.js"></script>
 
 <script async defer src="civics.js"></script>  <!--ties js page to this page-->
-<!--<script async defer src="js/jquery-3.4.1.slim.js"></script>  adds jquery to th file-->
+
 </head>
 <body class="m-3">
 
@@ -176,47 +176,5 @@
 </html>
 
 
-<!-- below is from github/claraj
-<ul id="list"></ul>
-
-<button id="submit">Submit</button>
-
-<script>
-
-let questionsUrl = "http://localhost:3000/questions"
-let scoresUrl = "http://localhost:3000/scores"
-
-let list = document.querySelector("#list")
-
-fetch(questionsUrl)
-    .then( resp => resp.json())
-    .then( questions => {
-        questions.forEach(question => {
-            let item = document.createElement('li')
-            item.innerHTML = question.question
-            list.appendChild(item)
-        });
-
-})
 
 
-document.querySelector('#submit').addEventListener('click', function() {
-    
-    // for example - you would get this from data the user entered 
-    let data = { name: 'Cat', score: 9}
-
-    fetch(scoresUrl, { 
-        method: 'POST',  
-        headers: {
-            'Content-Type': 'application/json'
-        }, 
-        body: JSON.stringify(data) 
-        })
-        .then(resp => { 
-            console.log(resp)
-        })
-})
-
-</script>
-
--->
