@@ -138,29 +138,15 @@
       "id": 62
     },
     {
-      "name": "test123",
-      "score": 6,
-      "id": 63
-    },
-    {
-      "name": "jilka",
-      "score": 8,
-      "id": 64
-    },
-    {
-      "name": "hello",
-      "score": 9,
-      "id": 65
-    },
-    {
-      "name": "pop",
-      "score": 8,
-      "id": 66
-    },
-    {
       "name": "test1234",
       "score": 10,
       "id": 67
+    },
+    {
+      "name": "KJ",
+      "score": 9,
+      "id": 68
     }
+    
   ]
 }

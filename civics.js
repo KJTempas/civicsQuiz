@@ -145,9 +145,7 @@ nextUserButton.addEventListener('click', function() {
     indivScore.innerHTML= ""
     //call function to uncheck all radio buttons
     uncheck()  
-    })  
-
-   
+    })   
 })
 
 averageButton.addEventListener('click', function() {
@@ -203,7 +201,6 @@ function checkForDuplicateName(userName, callback) {
 }
 
 function calculateScoreForIndiv(){  
-    //how to calculate from json
     let totalScore=0
     let questions = document.querySelectorAll('.questions')  
     wrongAnswerList=[]
@@ -218,14 +215,13 @@ function calculateScoreForIndiv(){
     
         if(userAnswer ===correctAnswer) {  //if the two answers are the same, add one to the total
             totalScore++
-        }else{ //otherwise, add that question# to the wrong answer array
-            //wrongAnswerList.push(questNumber) 
-            wrongAnswerString = ('The correct answer to ' + questNumber + ' is ' + correctAnswer)
+        }else{ //otherwise, add the correct answer to an array to show user 
+             
+            wrongAnswerString = ('The correct answer to ' + questNumber + ' is ' + correctAnswer + '\n')
             wrongAnswerList.push(wrongAnswerString)
             
         }  
-        
-    
+
     })
     
         if (wrongAnswerList.length === 0) {
