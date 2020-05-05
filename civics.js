@@ -49,7 +49,7 @@ fetch(questionsUrl) //go the the questionsUrl and fetch the questions
                 allAnswerElements.push(wrong)
             })
 
-            allAnswerElements = shuffle(allAnswerElements) //calls function below
+            allAnswerElements = shuffle(allAnswerElements) //calls function below to randomize answers
     
             allAnswerElements.forEach( function(el) {
                 singleQuestElement.appendChild(el) //add all of the answers to the div(item)
@@ -79,12 +79,12 @@ function shuffle(arrayOfElements) {
 function buildAnswerElement(answerText, questionId, isCorrectAnswer) {
     //create label, create radio button, return element with both in
     let answerEl = document.createElement('div')
-    let questionLabel=document.createElement('label') //original
+    let questionLabel=document.createElement('label') 
     questionLabel.innerHTML = answerText 
 
     let radioButton = document.createElement("INPUT");
     radioButton.setAttribute("type", "radio");
-    radioButton.setAttribute("name", 'quest' + questionId)
+    radioButton.setAttribute("name", 'question' + questionId)
     radioButton.setAttribute("class", "button")
     radioButton.setAttribute("value", answerText)   
      
@@ -108,16 +108,16 @@ submitButton.addEventListener('click', function() {
         alert('Enter a user name')
         return
     }
-    
-
-    checkForDuplicateName(userName, function(isDupe) {  //call function to make sure name not already in server.json
+    //call function to make sure name not already in server.json
+    checkForDuplicateName(userName, function(isDupe) {  
         if (isDupe) {
             alert('You already took the quiz.')
         }
         else{
             alert('Hello new user, scoring your quiz!')
     let questions = document.querySelectorAll('.questions')  //select all w/ class 'questions' - all question div elements
-    totalScore=calculateScoreForIndiv() //call this function below - returns totalScore
+    //call function to calculate if answers are correct or not - returns totalScore
+    totalScore=calculateScoreForIndiv() 
    
     //show person's score after looping is complete
     indivScore.innerHTML = `You scored ${totalScore} out of ${questions.length}`
@@ -212,22 +212,31 @@ function calculateScoreForIndiv(){
         let correctAnswer = correctAnswerEl.getAttribute('value')
         let questNumber = correctAnswerEl.getAttribute('name') 
         
-        //get the user's answer -call the function below - tie it to the correct class
+        //get the user's answer -call the getRadioValue function 
         userAnswer =getRadioValue(questNumber)
     
         if(userAnswer ===correctAnswer) {  //if the two answers are the same, add one to the total
             totalScore++
-        }else{ //otherwise, add that question# to the array
+        }else{ //otherwise, add that question# to the wrong answer array
             wrongAnswerList.push(questNumber)  
-        }  //if the wrong answer list has any elements in it, alert the user
-        if (wrongAnswerList.length>0){
-            alert('You got this question incorrect: ' +  wrongAnswerList)
-            for(let x=0; x<wrongAnswerList.length; x++){ //loop through list and let user know correct answer
-                alert('The correct answer is '  + correctAnswer)
+        }  
+        console.log('wrong answer list length  is ' , wrongAnswerList.length)
+        if (wrongAnswerList.length === 0) {
+            alert('Congratulations! You got all of the questions correct!')
+        } else {
+            alert('Oops, you missed ' + wrongAnswerList.length + ' question(s).')
+            for(let x=0; x<wrongAnswerList.length; x++){ 
+               //loop through list and let user know correct answer 
+                alert('The correct answer to ' + wrongAnswerList[x] + ' is ' + correctAnswer)
             }
-        } 
+
+        }
+        
+           
     })
+    
     return totalScore
 }
+
 
         
