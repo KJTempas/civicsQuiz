@@ -114,7 +114,7 @@ submitButton.addEventListener('click', function() {
             alert('You already took the quiz.')
         }
         else{
-            alert('Hello new user, scoring your quiz!')
+            //alert('Hello new user, scoring your quiz!')
     let questions = document.querySelectorAll('.questions')  //select all w/ class 'questions' - all question div elements
     //call function to calculate if answers are correct or not - returns totalScore
     totalScore=calculateScoreForIndiv() 
@@ -206,8 +206,9 @@ function calculateScoreForIndiv(){
     //how to calculate from json
     let totalScore=0
     let questions = document.querySelectorAll('.questions')  
+    wrongAnswerList=[]
     questions.forEach(function(question) {  // loop though a node list of questions
-        wrongAnswerList=[]
+        
         let correctAnswerEl = question.querySelector('#correct')  //find the correct answer for this question
         let correctAnswer = correctAnswerEl.getAttribute('value')
         let questNumber = correctAnswerEl.getAttribute('name') 
@@ -218,22 +219,23 @@ function calculateScoreForIndiv(){
         if(userAnswer ===correctAnswer) {  //if the two answers are the same, add one to the total
             totalScore++
         }else{ //otherwise, add that question# to the wrong answer array
-            wrongAnswerList.push(questNumber)  
+            //wrongAnswerList.push(questNumber) 
+            wrongAnswerString = ('The correct answer to ' + questNumber + ' is ' + correctAnswer)
+            wrongAnswerList.push(wrongAnswerString)
+            
         }  
-        console.log('wrong answer list length  is ' , wrongAnswerList.length)
+        
+    
+    })
+    
         if (wrongAnswerList.length === 0) {
             alert('Congratulations! You got all of the questions correct!')
         } else {
             alert('Oops, you missed ' + wrongAnswerList.length + ' question(s).')
-            for(let x=0; x<wrongAnswerList.length; x++){ 
-               //loop through list and let user know correct answer 
-                alert('The correct answer to ' + wrongAnswerList[x] + ' is ' + correctAnswer)
+            
+                alert(wrongAnswerList)
             }
-
-        }
-        
-           
-    })
+  
     
     return totalScore
 }
